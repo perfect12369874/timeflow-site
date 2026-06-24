@@ -63,7 +63,7 @@
 </nav>
 <main>
   <h1>隐私政策</h1>
-  <p class="meta">最后更新：2026 年 5 月 27 日</p>
+  <p class="meta">最后更新：2026 年 6 月 24 日</p>
 
   <p class="lede">TimeFlow 由独立开发者维护。简而言之：你的所有时间记录数据默认保存在本地。我们没有服务器，没有账户系统，不收集分析数据。只有当你主动触发 AI 洞察时，部分数据才会发送给你自己配置的 AI 服务商。</p>
 
@@ -75,25 +75,28 @@
       <tr><td>时间块</td><td>核心数据</td><td>设备 SwiftData</td></tr>
       <tr><td>项目 / 分类</td><td>组织你的记录</td><td>设备 SwiftData</td></tr>
       <tr><td>睡眠数据</td><td>识别睡眠时段</td><td>不离开设备 (HealthKit)</td></tr>
-      <tr><td>日历事件</td><td>识别会议</td><td>不离开设备 (EventKit)</td></tr>
-      <tr><td>运动数据</td><td>推断步行 / 驾驶</td><td>不离开设备 (CoreMotion)</td></tr>
+      <tr><td>运动数据</td><td>推断步行 / 跑步 / 骑行 / 驾驶通勤</td><td>不离开设备 (CoreMotion)</td></tr>
       <tr><td>位置访问</td><td>识别家 / 工作地点</td><td>不离开设备，仅保存聚类标签</td></tr>
+      <tr><td>Mac 使用时长</td><td>电脑各 app 使用时段</td><td>仅经你自己的 iCloud 私有库同步</td></tr>
+      <tr><td>语音（可选）</td><td>口述补记时间块</td><td>本地识别；选用豆包时上传字节跳动</td></tr>
       <tr><td>API Key</td><td>调用 AI</td><td>iOS Keychain (本设备解锁时)</td></tr>
     </tbody>
   </table>
   <p>我们<strong>不收集</strong>：姓名 / 邮箱 / 电话、设备 ID、广告 ID、使用统计、崩溃报告。</p>
 
   <h2>2. 数据如何离开你的设备</h2>
-  <p>TimeFlow 默认<strong>完全离线工作</strong>。数据离开你的设备<strong>只有一种情况</strong>：你主动触发 AI 洞察。</p>
+  <p>TimeFlow 默认<strong>完全离线工作</strong>。数据离开你设备只在下面这些情况，且都由你主动开启。</p>
 
-  <h3>L1 · 隐私优先（默认）</h3>
+  <p><strong>① 生成 AI 洞察时</strong> —— 按你选的隐私级别脱敏后，发给你自己配置的 AI 服务商：</p>
+
+  <h3>L1 · 隐私优先</h3>
   <p>只发送聚合统计：各分类时长占比、每日睡眠总分钟数、最长工作连续天数。<strong>不发送</strong>项目名、会议标题、地点。</p>
 
   <h3>L2 · 匿名上下文</h3>
-  <p>L1 + 匿名化时间块图案。项目名替换为 <code>Project A / B / C</code>。<strong>不发送</strong>会议标题、地点。</p>
+  <p>L1 + 匿名化时间块图案。<strong>不发送</strong>项目原名、地点、备注。</p>
 
   <h3>L3 · 完整上下文</h3>
-  <p>L2 + 项目名、会议标题、运动细节。<strong>只有 L3 会包含可能识别你身份的内容</strong>。L3 默认关闭。</p>
+  <p>L2 + 项目名、自定义分类名、运动细节。<strong>只有 L3 会包含可能识别你身份的内容</strong>。</p>
 
   <h3>AI 服务商</h3>
   <p>TimeFlow 当前支持 4 个 AI 服务商：</p>
@@ -102,8 +105,15 @@
     <li>Google (Gemini) — <a href="https://policies.google.com/privacy">隐私政策</a></li>
     <li>DeepSeek — <a href="https://platform.deepseek.com/privacy">隐私政策</a></li>
     <li>Moonshot (Kimi) — <a href="https://www.moonshot.cn/privacy">隐私政策</a></li>
+    <li>字节跳动 · 火山引擎（豆包）— <a href="https://www.volcengine.com/docs/6256/64902">隐私政策</a></li>
   </ul>
   <p><strong>TimeFlow 与上述任何一家都无商业关系或数据共享协议。</strong></p>
+
+  <h3>② 语音补记时（可选）</h3>
+  <p>若你在设置里开启「豆包流式识别」并用语音补记，录音会实时上传字节跳动 / 火山引擎做转写。不开启则使用 Apple 设备端识别，完全不联网。</p>
+
+  <h3>③ Mac 电脑使用时长（可选）</h3>
+  <p>若你安装 TimeFlow Mac 版，电脑各 app 的使用时段会经<strong>你自己的 iCloud 私有库</strong>同步到手机。这条数据只在「你的设备 ↔ 你的 iCloud」之间流转，<strong>绝不</strong>发给我们或任何 AI / 第三方。</p>
 
   <h2>3. 你的 API Key</h2>
   <ul>

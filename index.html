@@ -3,59 +3,185 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TimeFlow — iOS 智能时间记录</title>
+<title>TimeFlow — 让 AI 看见你的一天</title>
+<meta name="description" content="TimeFlow 是一款 iOS 智能时间记录 app。被动自动记录你的睡眠、运动、通勤、电脑使用，AI 帮你看清时间真正的去向。隐私优先，数据只存你自己的设备和 iCloud。"/>
+<meta property="og:title" content="TimeFlow — 让 AI 看见你的一天"/>
+<meta property="og:description" content="被动自动记录 + AI 洞察。隐私优先，零服务器。"/>
+<meta property="og:type" content="website"/>
 <style>
   :root {
-    --bg: #fafaf8; --text: #1a1a1c; --text-2: #5a5a5e;
-    --brand: #16a34a; --line: rgba(0,0,0,0.08);
+    --bg: #fafaf8; --surface: #ffffff; --text: #15161a; --text-2: #5a5a5e;
+    --brand: #16a34a; --brand-2: #22c55e; --line: rgba(0,0,0,0.08);
+    --tint: rgba(34,197,94,0.08); --tint-line: rgba(34,197,94,0.22);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0a0a0b; --text: #f2f4f1; --text-2: rgba(255,255,255,0.6);
-      --line: rgba(255,255,255,0.08);
+      --bg: #08090a; --surface: #111316; --text: #f2f4f1; --text-2: rgba(255,255,255,0.58);
+      --brand: #22c55e; --brand-2: #4ade80; --line: rgba(255,255,255,0.09);
+      --tint: rgba(34,197,94,0.10); --tint-line: rgba(34,197,94,0.28);
     }
   }
+  * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
-    font-family: 'Geist', -apple-system, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased; min-height: 100vh; }
-  body { display: flex; flex-direction: column; }
-  main { max-width: 640px; margin: 0 auto; padding: 80px 24px 60px; flex: 1; text-align: center; }
-  .logo-mark { width: 96px; height: 96px; border-radius: 22px;
-    background: var(--brand); margin: 0 auto 28px;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 12px 40px rgba(22,163,74,0.25); }
-  .logo-mark svg { width: 60%; height: 60%; }
-  h1 { font-size: 48px; font-weight: 800; margin: 0; letter-spacing: -0.025em; }
-  .tag { color: var(--text-2); font-size: 18px; margin: 12px 0 32px; }
-  .links { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
-  .links a { display: inline-flex; align-items: center; gap: 6px;
-    padding: 12px 18px; border-radius: 10px;
-    background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.25);
-    color: var(--brand); text-decoration: none; font-weight: 600; font-size: 14px; }
-  .links a.alt { background: transparent; border-color: var(--line); color: var(--text-2); }
-  footer { text-align: center; padding: 24px;
-    color: var(--text-2); font-size: 12px;
-    font-family: ui-monospace, 'JetBrains Mono', monospace; }
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; }
+  a { color: var(--brand); text-decoration: none; }
+  .mono { font-family: ui-monospace, 'JetBrains Mono', SFMono-Regular, monospace; }
+
+  /* nav */
+  nav { display: flex; align-items: center; gap: 18px; max-width: 980px; margin: 0 auto;
+    padding: 20px 24px; font-size: 14px; }
+  .logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 700; color: var(--text); font-size: 16px; }
+  .logo .mk { width: 24px; height: 24px; border-radius: 7px; background: var(--brand-2);
+    display: inline-flex; align-items: center; justify-content: center; }
+  .logo .mk svg { width: 64%; height: 64%; }
+  nav .spacer { flex: 1; }
+  nav .navlink { color: var(--text-2); font-weight: 500; }
+  nav .navlink:hover { color: var(--text); }
+
+  section { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  /* hero */
+  .hero { text-align: center; padding: 72px 24px 64px; }
+  .badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px;
+    border-radius: 999px; background: var(--tint); border: 1px solid var(--tint-line);
+    color: var(--brand); font-size: 12.5px; font-weight: 600; margin-bottom: 28px; }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-2);
+    box-shadow: 0 0 0 3px var(--tint); }
+  .hero .mark { width: 104px; height: 104px; border-radius: 26px; background: var(--brand-2);
+    margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 18px 48px rgba(34,197,94,0.30); }
+  .hero .mark svg { width: 60%; height: 60%; }
+  h1 { font-size: 58px; line-height: 1.04; font-weight: 800; letter-spacing: -0.03em; margin: 0; }
+  h1 .accent { color: var(--brand); }
+  .hero p { font-size: 19px; color: var(--text-2); max-width: 540px; margin: 20px auto 0; line-height: 1.55; }
+  .cta { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px;
+    border-radius: 12px; font-weight: 600; font-size: 15px; border: 1px solid transparent; }
+  .btn.primary { background: var(--brand-2); color: #06200f; box-shadow: 0 8px 24px rgba(34,197,94,0.28); }
+  .btn.ghost { background: transparent; border-color: var(--line); color: var(--text); }
+  .btn.ghost:hover { border-color: var(--tint-line); color: var(--brand); }
+
+  /* positioning strip */
+  .strip { margin: 8px auto 0; padding: 28px 28px; max-width: 760px; text-align: center;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .strip h2 { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 10px; }
+  .strip p { font-size: 16px; color: var(--text-2); line-height: 1.6; margin: 0; }
+  .strip .hl { color: var(--text); font-weight: 600; }
+
+  /* features */
+  .features { padding: 64px 24px 24px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+    padding: 26px 24px; }
+  .card .ic { width: 40px; height: 40px; border-radius: 11px; background: var(--tint);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+  .card h3 { font-size: 17px; font-weight: 700; margin: 0 0 7px; letter-spacing: -0.01em; }
+  .card p { font-size: 14.5px; color: var(--text-2); line-height: 1.6; margin: 0; }
+
+  /* privacy callout */
+  .privacy { margin: 56px auto 0; }
+  .privacy .box { background: linear-gradient(180deg, var(--tint), transparent);
+    border: 1px solid var(--tint-line); border-radius: 20px; padding: 40px 32px; text-align: center; }
+  .privacy h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 12px; }
+  .privacy p { font-size: 16px; color: var(--text-2); max-width: 600px; margin: 0 auto; line-height: 1.65; }
+  .privacy .pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+  .pill { font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line); color: var(--text); }
+
+  /* footer */
+  footer { max-width: 980px; margin: 72px auto 0; padding: 28px 24px 48px;
+    border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 24px;
+    align-items: center; color: var(--text-2); font-size: 13px; }
+  footer .spacer { flex: 1; }
+  footer a { color: var(--text-2); }
+  footer a:hover { color: var(--brand); }
+
+  @media (max-width: 680px) {
+    h1 { font-size: 42px; }
+    .hero p { font-size: 17px; }
+    .grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <div class="logo-mark">
-    <svg viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="6" opacity="0.4"/>
-      <path d="M 50 14 A 36 36 0 0 1 86 50" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-      <line x1="50" y1="50" x2="68" y2="38" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
-      <circle cx="50" cy="50" r="3.5" fill="#fff"/>
-    </svg>
+
+<nav>
+  <span class="logo"><span class="mk">
+    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="7" opacity="0.4"/><path d="M 50 12 A 38 38 0 0 1 88 50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><line x1="50" y1="50" x2="70" y2="36" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="50" r="4" fill="#fff"/></svg>
+  </span>TimeFlow</span>
+  <span class="spacer"></span>
+  <a class="navlink" href="privacy.html">隐私政策</a>
+  <a class="navlink" href="support.html">支持</a>
+</nav>
+
+<header class="hero">
+  <span class="badge"><span class="dot"></span>即将上架 App Store</span>
+  <div class="mark">
+    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="6" opacity="0.4"/><path d="M 50 12 A 38 38 0 0 1 88 50" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><line x1="50" y1="50" x2="70" y2="36" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="50" cy="50" r="3.5" fill="#fff"/></svg>
   </div>
-  <h1>TimeFlow</h1>
-  <p class="tag">看见时间真正的去向 · iOS</p>
-  <div class="links">
-    <a href="#">📱 App Store</a>
-    <a href="privacy.html" class="alt">隐私政策</a>
-    <a href="support.html" class="alt">支持</a>
+  <h1>让 AI <span class="accent">看见</span><br/>你的一天</h1>
+  <p>TimeFlow 在后台默默记录你的睡眠、运动、通勤、电脑使用，再用 AI 帮你看清时间真正的去向 —— 不用每天手动点开始/停止。</p>
+  <div class="cta">
+    <a class="btn primary" href="mailto:timeflow.app@gmail.com?subject=TimeFlow%20上架通知">📬 上架时通知我</a>
+    <a class="btn ghost" href="privacy.html">看看隐私怎么做的</a>
   </div>
-</main>
-<footer>© 2026 TimeFlow · Independent · timeflow.app@gmail.com</footer>
+</header>
+
+<section class="strip">
+  <h2>不是又一个秒表 App</h2>
+  <p>大多数时间记录工具要你<span class="hl">手动开始计时</span> —— 坚持几天就放弃了。TimeFlow 反过来：<span class="hl">被动采集</span>你已有的健康、运动、位置数据，自动拼出一天的时间块，你只需要<span class="hl">确认</span>。然后 AI 找出异常和因果，告诉你时间花哪了、哪里可以更好。</p>
+</section>
+
+<section class="features">
+  <div class="grid">
+    <div class="card">
+      <div class="ic">🛌</div>
+      <h3>自动记录，不打扰</h3>
+      <p>睡眠（像 Life Cycle 一样精确测入睡/起床）、步行跑步、开车骑行通勤、常去地点、Mac 电脑各 app 使用时长 —— 全部自动识别成待确认的时间块。</p>
+    </div>
+    <div class="card">
+      <div class="ic">✨</div>
+      <h3>AI 看出门道</h3>
+      <p>接入你自己的 Claude / Gemini / DeepSeek / Kimi / 豆包，按周/月分析时间结构、找异常因果、给下周可执行的建议 —— 不止是好看的图表。</p>
+    </div>
+    <div class="card">
+      <div class="ic">🔒</div>
+      <h3>隐私是底线，不是卖点</h3>
+      <p>没有账户、没有我们的服务器。数据只存你自己的设备和 iCloud 私有库。原始坐标、地址、备注<strong>绝不</strong>发给任何 AI；连开发者都看不到你的数据。</p>
+    </div>
+    <div class="card">
+      <div class="ic">🎙️</div>
+      <h3>补记只要一句话</h3>
+      <p>忘了记？长按按钮说一句「下午两点到四点在游泳」，AI 自动拆成时间块。日历上拖一拖也能改，15 分钟精度。</p>
+    </div>
+  </div>
+</section>
+
+<section class="privacy">
+  <div class="box">
+    <h2>你的时间，只属于你</h2>
+    <p>TimeFlow 默认完全离线工作。数据离开设备只有一种情况：你主动点「生成 AI 洞察」，且按你选的隐私级别脱敏后，才发给你自己配置的 AI 服务商。我们不收集姓名、邮箱、设备 ID、使用统计或崩溃数据 —— 因为我们根本没有收集数据的服务器。</p>
+    <div class="pills">
+      <span class="pill">零服务器</span>
+      <span class="pill">零账户</span>
+      <span class="pill">本地 + 你的 iCloud</span>
+      <span class="pill">三档隐私级别</span>
+      <span class="pill">一键导出 / 清空</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo" style="font-size:14px"><span class="mk" style="width:20px;height:20px;border-radius:6px">
+    <svg viewBox="0 0 100 100"><path d="M 50 14 A 36 36 0 0 1 86 50" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/><circle cx="50" cy="50" r="4" fill="#fff"/></svg>
+  </span>TimeFlow</span>
+  <span class="spacer"></span>
+  <a href="privacy.html">隐私政策</a>
+  <a href="support.html">支持</a>
+  <a href="mailto:timeflow.app@gmail.com">timeflow.app@gmail.com</a>
+  <span class="mono" style="width:100%;opacity:0.7">© 2026 TimeFlow · 独立开发者作品 · 不属于任何公司</span>
+</footer>
+
 </body>
 </html>
