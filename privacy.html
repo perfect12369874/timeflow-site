@@ -63,20 +63,20 @@
 </nav>
 <main>
   <h1>隐私政策</h1>
-  <p class="meta">最后更新：2026 年 6 月 24 日</p>
+  <p class="meta">最后更新：2026 年 6 月 25 日</p>
 
-  <p class="lede">TimeFlow 由独立开发者维护。简而言之：你的所有时间记录数据默认保存在本地。我们没有服务器，没有账户系统，不收集分析数据。只有当你主动触发 AI 洞察时，部分数据才会发送给你自己配置的 AI 服务商。</p>
+  <p class="lede">TimeFlow 由独立开发者维护。简而言之：你的时间记录数据保存在你的设备上，并通过<strong>你自己的 iCloud 私有库</strong>（端对端加密）在你的设备间同步。我们没有服务器、没有账户系统、不收集任何分析数据，也读不到你的数据。只有当你主动触发 AI 洞察或语音补记时，部分数据才会发送给你自己配置的服务商。</p>
 
   <h2>1. 我们收集什么数据</h2>
-  <p>TimeFlow 本身<strong>不收集</strong>任何数据到我们的服务器（因为我们没有服务器）。App 在你的设备上读取或创建以下数据，<strong>全部保存在本地</strong>：</p>
+  <p>TimeFlow 本身<strong>不收集</strong>任何数据到我们的服务器（因为我们没有服务器）。App 在你的设备上读取或创建以下数据；除标注「不离开设备」外，均存在你的设备并经<strong>你自己的</strong> iCloud 私有库同步：</p>
   <table>
     <thead><tr><th>类型</th><th>用途</th><th>存储位置</th></tr></thead>
     <tbody>
-      <tr><td>时间块</td><td>核心数据</td><td>设备 SwiftData</td></tr>
-      <tr><td>项目 / 分类</td><td>组织你的记录</td><td>设备 SwiftData</td></tr>
-      <tr><td>睡眠数据</td><td>识别睡眠时段</td><td>不离开设备 (HealthKit)</td></tr>
-      <tr><td>运动数据</td><td>推断步行 / 跑步 / 骑行 / 驾驶通勤</td><td>不离开设备 (CoreMotion)</td></tr>
-      <tr><td>位置访问</td><td>识别家 / 工作地点</td><td>不离开设备，仅保存聚类标签</td></tr>
+      <tr><td>时间块</td><td>核心数据</td><td>你的设备 + 你的 iCloud 私有库</td></tr>
+      <tr><td>项目 / 分类</td><td>组织你的记录</td><td>你的设备 + 你的 iCloud 私有库</td></tr>
+      <tr><td>睡眠数据（原始）</td><td>识别睡眠时段</td><td>不离开设备 (HealthKit)</td></tr>
+      <tr><td>运动数据（原始）</td><td>推断步行 / 跑步 / 骑行 / 驾驶通勤</td><td>不离开设备 (CoreMotion)</td></tr>
+      <tr><td>地点坐标</td><td>识别家 / 工作 / 自定义地点</td><td>你的设备 + 你的 iCloud（端对端加密）</td></tr>
       <tr><td>Mac 使用时长</td><td>电脑各 app 使用时段</td><td>仅经你自己的 iCloud 私有库同步</td></tr>
       <tr><td>语音（可选）</td><td>口述补记时间块</td><td>本地识别；选用豆包时上传字节跳动</td></tr>
       <tr><td>API Key</td><td>调用 AI</td><td>iOS Keychain (本设备解锁时)</td></tr>
@@ -85,7 +85,7 @@
   <p>我们<strong>不收集</strong>：姓名 / 邮箱 / 电话、设备 ID、广告 ID、使用统计、崩溃报告。</p>
 
   <h2>2. 数据如何离开你的设备</h2>
-  <p>TimeFlow 默认<strong>完全离线工作</strong>。数据离开你设备只在下面这些情况，且都由你主动开启。</p>
+  <p>你的数据会自动同步到<strong>你自己的</strong> iCloud（端对端加密，见 §4）—— 只在「你的设备 ↔ 你的 iCloud」之间流转，苹果和我们都读不到。除此之外，数据离开你的掌控只在下面这些<strong>你主动触发</strong>的情况：</p>
 
   <p><strong>① 生成 AI 洞察时</strong> —— 按你选的隐私级别脱敏后，发给你自己配置的 AI 服务商：</p>
 
@@ -123,8 +123,8 @@
     <li>删除 App 即清除</li>
   </ul>
 
-  <h2>4. iCloud 同步（可选）</h2>
-  <p>如果你开启 iCloud 同步：时间块、项目、分类通过 <code>NSPersistentCloudKitContainer</code> 同步到你私有的 iCloud Drive。Apple 无法读取（CloudKit 端对端加密）。API Key 不会同步。</p>
+  <h2>4. iCloud 同步（自动）</h2>
+  <p>登录 iCloud 后<strong>自动开启</strong>：时间块、项目、分类、AI 洞察、自定义地点（含坐标）通过 <code>NSPersistentCloudKitContainer</code> 同步到<strong>你私有的</strong> iCloud 库。Apple 无法读取（CloudKit 端对端加密），开发者更读不到。<strong>API Key 不会同步</strong>（仅存本机 Keychain）。未登录 iCloud 时数据只留在本机，一切照常。</p>
 
   <h2>5. 数据保留与删除</h2>
   <p>你的数据保留直到你主动删除或卸载 App。在 设置 → 数据与隐私 中可一键导出（JSON / CSV）或清空所有数据。</p>
