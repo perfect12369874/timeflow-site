@@ -1,187 +1,447 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="zh">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TimeFlow — 让 AI 看见你的一天</title>
-<meta name="description" content="TimeFlow 是一款 iOS 智能时间记录 app。被动自动记录你的睡眠、运动、通勤、电脑使用，AI 帮你看清时间真正的去向。隐私优先，数据只存你自己的设备和 iCloud。"/>
-<meta property="og:title" content="TimeFlow — 让 AI 看见你的一天"/>
-<meta property="og:description" content="被动自动记录 + AI 洞察。隐私优先，零服务器。"/>
+<title data-en="TimeFlow — See where your time really goes">TimeFlow — 看清你的时间，真正花在了哪</title>
+<meta name="description" content="TimeFlow 是一款 iOS 智能时间记录 app。被动自动记录 + 主动一键追踪，AI 帮你看清时间去向、对比趋势、并告诉你下周该减少 / 增加 / 保持什么。隐私优先，零服务器、零账户。"/>
+<meta property="og:title" content="TimeFlow — 看清你的时间，真正花在了哪"/>
+<meta property="og:description" content="被动 AI 识别 + 主动追踪。看清去向、对比趋势、优化下周。隐私优先，零服务器。"/>
 <meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="assets/app-icon.png"/>
+<link rel="apple-touch-icon" href="assets/app-icon.png"/>
+<link rel="stylesheet" href="styles.css"/>
 <style>
-  :root {
-    --bg: #fafaf8; --surface: #ffffff; --text: #15161a; --text-2: #5a5a5e;
-    --brand: #16a34a; --brand-2: #22c55e; --line: rgba(0,0,0,0.08);
-    --tint: rgba(34,197,94,0.08); --tint-line: rgba(34,197,94,0.22);
+  /* ---------- home-only ---------- */
+  .hero { position: relative; padding: 64px 0 40px; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: -10% -20% auto; height: 620px;
+    background: radial-gradient(60% 70% at 72% 30%, rgba(48,209,88,0.16), transparent 62%),
+                radial-gradient(50% 60% at 20% 10%, rgba(59,130,246,0.10), transparent 60%);
+    pointer-events: none; z-index: 0;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #08090a; --surface: #111316; --text: #f2f4f1; --text-2: rgba(255,255,255,0.58);
-      --brand: #22c55e; --brand-2: #4ade80; --line: rgba(255,255,255,0.09);
-      --tint: rgba(34,197,94,0.10); --tint-line: rgba(34,197,94,0.28);
-    }
+  .hero-grid {
+    position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: 40px; align-items: center;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
-    font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased; }
-  a { color: var(--brand); text-decoration: none; }
-  .mono { font-family: ui-monospace, 'JetBrains Mono', SFMono-Regular, monospace; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
+    background: var(--green-tint); border: 1px solid var(--green-line);
+    color: var(--green-bright); font-size: 12.5px; font-weight: 600; margin-bottom: 26px;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px var(--green-tint); }
+  .hero h1 { margin-bottom: 22px; }
+  .hero .lede { max-width: 520px; margin-bottom: 32px; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .soon-badge {
+    display: inline-flex; align-items: center; gap: 9px; padding: 11px 16px; border-radius: 13px;
+    border: 1px solid var(--hairline-2); color: var(--ink-3); font-size: 13px;
+  }
+  .soon-badge svg { width: 20px; height: 20px; opacity: 0.7; }
 
-  /* nav */
-  nav { display: flex; align-items: center; gap: 18px; max-width: 980px; margin: 0 auto;
-    padding: 20px 24px; font-size: 14px; }
-  .logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 700; color: var(--text); font-size: 16px; }
-  .logo .mk { width: 24px; height: 24px; border-radius: 7px; background: var(--brand-2);
-    display: inline-flex; align-items: center; justify-content: center; }
-  .logo .mk svg { width: 64%; height: 64%; }
-  nav .spacer { flex: 1; }
-  nav .navlink { color: var(--text-2); font-weight: 500; }
-  nav .navlink:hover { color: var(--text); }
+  .hero-visual { position: relative; display: flex; justify-content: center; }
+  .shot { border-radius: 40px; overflow: hidden; border: 6px solid #050506;
+    box-shadow: 0 40px 90px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06); background: #000; }
+  .shot img { width: 100%; height: auto; display: block; }
+  .hero-visual .shot { width: 300px; }
+  .hero-visual::after {
+    content: ""; position: absolute; inset: 8% -6% -6% -6%; z-index: -1; border-radius: 50%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(48,209,88,0.20), transparent 70%);
+    filter: blur(20px);
+  }
 
-  section { max-width: 980px; margin: 0 auto; padding: 0 24px; }
-
-  /* hero */
-  .hero { text-align: center; padding: 72px 24px 64px; }
-  .badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px;
-    border-radius: 999px; background: var(--tint); border: 1px solid var(--tint-line);
-    color: var(--brand); font-size: 12.5px; font-weight: 600; margin-bottom: 28px; }
-  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-2);
-    box-shadow: 0 0 0 3px var(--tint); }
-  .hero .mark { width: 104px; height: 104px; border-radius: 26px; background: var(--brand-2);
-    margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 18px 48px rgba(34,197,94,0.30); }
-  .hero .mark svg { width: 60%; height: 60%; }
-  h1 { font-size: 58px; line-height: 1.04; font-weight: 800; letter-spacing: -0.03em; margin: 0; }
-  h1 .accent { color: var(--brand); }
-  .hero p { font-size: 19px; color: var(--text-2); max-width: 540px; margin: 20px auto 0; line-height: 1.55; }
-  .cta { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px;
-    border-radius: 12px; font-weight: 600; font-size: 15px; border: 1px solid transparent; }
-  .btn.primary { background: var(--brand-2); color: #06200f; box-shadow: 0 8px 24px rgba(34,197,94,0.28); }
-  .btn.ghost { background: transparent; border-color: var(--line); color: var(--text); }
-  .btn.ghost:hover { border-color: var(--tint-line); color: var(--brand); }
+  /* spectrum strip */
+  .spectrum { position: relative; z-index: 1; margin-top: 52px; }
+  .spectrum-bar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; gap: 2px; }
+  .spectrum-bar span { display: block; }
+  .spectrum-legend {
+    display: flex; flex-wrap: wrap; gap: 7px 18px; margin-top: 16px;
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); letter-spacing: 0.02em;
+  }
+  .spectrum-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
 
   /* positioning strip */
-  .strip { margin: 8px auto 0; padding: 28px 28px; max-width: 760px; text-align: center;
-    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .strip h2 { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 10px; }
-  .strip p { font-size: 16px; color: var(--text-2); line-height: 1.6; margin: 0; }
-  .strip .hl { color: var(--text); font-weight: 600; }
+  .posit { border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+    padding: 52px 0; text-align: center; }
+  .posit .h2 { max-width: 760px; margin: 0 auto 16px; }
+  .posit p { max-width: 660px; margin: 0 auto; color: var(--ink-2); font-size: 17px; }
+  .posit .hl { color: var(--ink); font-weight: 600; }
 
-  /* features */
-  .features { padding: 64px 24px 24px; }
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
-    padding: 26px 24px; }
-  .card .ic { width: 40px; height: 40px; border-radius: 11px; background: var(--tint);
-    display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
-  .card h3 { font-size: 17px; font-weight: 700; margin: 0 0 7px; letter-spacing: -0.01em; }
-  .card p { font-size: 14.5px; color: var(--text-2); line-height: 1.6; margin: 0; }
+  /* value blocks (image + text) */
+  .vblock { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .vblock + .vblock { margin-top: 104px; }
+  .vblock.flip .vb-media { order: 2; }
+  .vb-media { display: flex; justify-content: center; position: relative; }
+  .vb-media .shot { width: 290px; }
+  .vb-media .glow { position: absolute; inset: 10% 0 0; z-index: -1; border-radius: 50%; filter: blur(26px); opacity: 0.5; }
+  .vb-body { max-width: 460px; }
+  .vb-body .h2 { margin-bottom: 18px; }
+  .vb-body p { color: var(--ink-2); font-size: 16.5px; margin: 0 0 22px; }
+  .vlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
+  .vlist li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink-2); }
+  .vlist li .tick { color: var(--green); flex: 0 0 auto; margin-top: 2px; font-weight: 700; }
+  .vlist li b { color: var(--ink); font-weight: 600; }
 
-  /* privacy callout */
-  .privacy { margin: 56px auto 0; }
-  .privacy .box { background: linear-gradient(180deg, var(--tint), transparent);
-    border: 1px solid var(--tint-line); border-radius: 20px; padding: 40px 32px; text-align: center; }
-  .privacy h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 12px; }
-  .privacy p { font-size: 16px; color: var(--text-2); max-width: 600px; margin: 0 auto; line-height: 1.65; }
-  .privacy .pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
-  .pill { font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
-    background: var(--surface); border: 1px solid var(--line); color: var(--text); }
+  /* dual model */
+  .dual { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .dual .card { position: relative; overflow: hidden; }
+  .dual .card .tag {
+    display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; margin-bottom: 18px;
+  }
+  .dual .blue .tag { color: #7eb0ff; background: rgba(59,130,246,0.14); border: 1px solid rgba(59,130,246,0.3); }
+  .dual .green .tag { color: var(--green-bright); background: var(--green-tint); border: 1px solid var(--green-line); }
+  .dual .card h3 { font-size: 22px; margin-bottom: 10px; }
+  .dual .card p { color: var(--ink-2); font-size: 15px; margin: 0; }
+  .dual .card .edge { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .dual .blue .edge { background: var(--c-work); }
+  .dual .green .edge { background: var(--green); }
 
-  /* footer */
-  footer { max-width: 980px; margin: 72px auto 0; padding: 28px 24px 48px;
-    border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 24px;
-    align-items: center; color: var(--text-2); font-size: 13px; }
-  footer .spacer { flex: 1; }
-  footer a { color: var(--text-2); }
-  footer a:hover { color: var(--brand); }
+  /* privacy */
+  .privacy-wrap {
+    background: linear-gradient(180deg, rgba(48,209,88,0.06), transparent 60%), var(--surface);
+    border: 1px solid var(--green-line); border-radius: 30px; padding: 56px 48px; text-align: center;
+  }
+  .privacy-wrap .h2 { margin-bottom: 16px; }
+  .privacy-wrap > p { max-width: 620px; margin: 0 auto 30px; color: var(--ink-2); font-size: 16.5px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .pill { font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--hairline-2); color: var(--ink); }
+  .privacy-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 34px; text-align: left; }
+  .lvl { background: var(--bg-2); border: 1px solid var(--hairline); border-radius: 16px; padding: 20px; }
+  .lvl .badge-l { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+    border-radius: 11px; font-family: var(--mono); font-weight: 600; font-size: 14px; margin-bottom: 14px; }
+  .lvl.l1 .badge-l { color: var(--green); border: 1.5px solid var(--green-line); }
+  .lvl.l2 .badge-l { color: var(--c-fun); border: 1.5px solid rgba(234,179,8,0.4); }
+  .lvl.l3 .badge-l { color: var(--ink-2); border: 1.5px solid var(--hairline-2); }
+  .lvl h4 { margin: 0 0 6px; font-size: 15px; }
+  .lvl p { margin: 0; font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 
-  @media (max-width: 680px) {
-    h1 { font-size: 42px; }
-    .hero p { font-size: 17px; }
-    .grid { grid-template-columns: 1fr; }
+  /* pricing */
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 760px; margin: 0 auto; }
+  .price { background: var(--surface); border: 1px solid var(--hairline); border-radius: 24px; padding: 34px 30px; }
+  .price.pro { border-color: var(--green-line); background: linear-gradient(180deg, rgba(48,209,88,0.06), transparent 50%), var(--surface); }
+  .price .pname { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+  .price.pro .pname { color: var(--green-bright); }
+  .price .pamt { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; margin: 14px 0 4px; }
+  .price .psub { color: var(--ink-3); font-size: 13px; margin-bottom: 22px; }
+  .price ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .price li { display: flex; gap: 10px; font-size: 14.5px; color: var(--ink-2); }
+  .price li .tick { color: var(--green); flex: 0 0 auto; }
+
+  /* final cta */
+  .final { text-align: center; }
+  .final .h2 { margin-bottom: 16px; }
+  .final p { color: var(--ink-2); max-width: 520px; margin: 0 auto 30px; font-size: 17px; }
+  .final-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 12px; }
+    .hero-visual { order: -1; margin-bottom: 8px; }
+    .hero-visual .shot { width: 240px; }
+    .vblock, .dual, .privacy-levels, .price-grid { grid-template-columns: 1fr; gap: 32px; }
+    .vblock.flip .vb-media { order: -1; }
+    .vblock + .vblock { margin-top: 72px; }
+    .privacy-wrap { padding: 40px 24px; }
+    .section { padding: 68px 0; }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <span class="logo"><span class="mk">
-    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="7" opacity="0.4"/><path d="M 50 12 A 38 38 0 0 1 88 50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><line x1="50" y1="50" x2="70" y2="36" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="50" r="4" fill="#fff"/></svg>
-  </span>TimeFlow</span>
-  <span class="spacer"></span>
-  <a class="navlink" href="privacy.html">隐私政策</a>
-  <a class="navlink" href="support.html">支持</a>
-</nav>
-
-<header class="hero">
-  <span class="badge"><span class="dot"></span>即将上架 App Store</span>
-  <div class="mark">
-    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="6" opacity="0.4"/><path d="M 50 12 A 38 38 0 0 1 88 50" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><line x1="50" y1="50" x2="70" y2="36" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="50" cy="50" r="3.5" fill="#fff"/></svg>
+<!-- ===================== NAV ===================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active"><span class="zh">首页</span><span class="en">Home</span></a>
+      <a href="help.html"><span class="zh">帮助</span><span class="en">Help</span></a>
+      <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+      <a href="changelog.html"><span class="zh">更新</span><span class="en">Changelog</span></a>
+      <a href="privacy.html"><span class="zh">隐私</span><span class="en">Privacy</span></a>
+    </div>
+    <span class="nav-spacer"></span>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button data-lang-btn="zh">中</button><button data-lang-btn="en">EN</button>
+      </div>
+      <a class="btn btn-primary nav-cta" href="#notify"><span class="zh">通知我</span><span class="en">Notify me</span></a>
+      <button class="hamburger" data-burger aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      </button>
+    </div>
   </div>
-  <h1>让 AI <span class="accent">看见</span><br/>你的一天</h1>
-  <p>TimeFlow 在后台默默记录你的睡眠、运动、通勤、电脑使用，再用 AI 帮你看清时间真正的去向 —— 不用每天手动点开始/停止。</p>
-  <div class="cta">
-    <a class="btn primary" href="mailto:timeflow.app@gmail.com?subject=TimeFlow%20上架通知">📬 上架时通知我</a>
-    <a class="btn ghost" href="privacy.html">看看隐私怎么做的</a>
+</nav>
+<div class="drawer" data-drawer>
+  <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+  <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+  <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+  <a href="changelog.html"><span class="zh">更新日志</span><span class="en">Changelog</span></a>
+  <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy</span></a>
+  <a class="btn btn-primary" href="#notify"><span class="zh">上架通知我</span><span class="en">Notify me at launch</span></a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero dotgrid">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="badge"><span class="dot"></span><span class="zh">即将上架 App Store</span><span class="en">Coming soon to the App Store</span></span>
+        <h1 class="display">
+          <span class="zh">看清时间，<br/>真正花在<span class="accent">哪了</span></span>
+          <span class="en">See where your<br/>time <span class="accent">really goes</span></span>
+        </h1>
+        <p class="lede">
+          <span class="zh">TimeFlow 被动识别 + 主动追踪你的一天，AI 帮你看清时间去向、和上周对比趋势，并直接告诉你下周该<b style="color:var(--ink)">减少、增加、保持</b>什么。不用整天点开始 / 停止。</span>
+          <span class="en">TimeFlow passively detects and actively tracks your day, then AI shows you where time went, how it trends vs. last week, and exactly what to <b style="color:var(--ink)">cut, add, or keep</b> next week. No start/stop all day.</span>
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="#notify"><span class="zh">上架时通知我</span><span class="en">Notify me at launch</span></a>
+          <span class="soon-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.5c-.02-2 1.63-2.96 1.7-3-.93-1.36-2.37-1.55-2.88-1.57-1.23-.12-2.4.72-3.02.72-.62 0-1.58-.7-2.6-.68-1.34.02-2.57.78-3.26 1.97-1.39 2.42-.36 6 .99 7.96.66.96 1.45 2.03 2.48 1.99 1-.04 1.37-.64 2.58-.64 1.2 0 1.54.64 2.59.62 1.07-.02 1.74-.97 2.39-1.94.75-1.11 1.06-2.19 1.08-2.24-.02-.01-2.07-.79-2.09-3.14-.02-.01-.43.01-.43.01zM15.1 6.2c.55-.66.92-1.59.82-2.51-.79.03-1.75.53-2.31 1.19-.5.58-.94 1.52-.82 2.42.88.07 1.78-.45 2.31-1.1z"/></svg>
+            <span class="zh">App Store · 即将上架</span><span class="en">App Store · soon</span>
+          </span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="shot"><img src="assets/insights.png" alt="TimeFlow 洞察 — 一周时间去向" width="1206" height="2622" loading="eager"/></div>
+      </div>
+    </div>
+
+    <!-- spectrum -->
+    <div class="spectrum">
+      <div class="spectrum-bar">
+        <span style="flex:39;background:var(--c-sleep)"></span>
+        <span style="flex:41;background:var(--c-work)"></span>
+        <span style="flex:8;background:var(--c-fun)"></span>
+        <span style="flex:5;background:var(--c-fitness)"></span>
+        <span style="flex:2;background:var(--c-study)"></span>
+        <span style="flex:1;background:var(--c-life)"></span>
+        <span style="flex:1;background:var(--c-reflect)"></span>
+      </div>
+      <div class="spectrum-legend">
+        <span><i style="background:var(--c-sleep)"></i><span class="zh">睡觉</span><span class="en">Sleep</span></span>
+        <span><i style="background:var(--c-work)"></i><span class="zh">工作</span><span class="en">Work</span></span>
+        <span><i style="background:var(--c-life)"></i><span class="zh">生活</span><span class="en">Life</span></span>
+        <span><i style="background:var(--c-fitness)"></i><span class="zh">健身</span><span class="en">Fitness</span></span>
+        <span><i style="background:var(--c-study)"></i><span class="zh">学习</span><span class="en">Study</span></span>
+        <span><i style="background:var(--c-reflect)"></i><span class="zh">反思</span><span class="en">Reflect</span></span>
+        <span><i style="background:var(--c-fun)"></i><span class="zh">娱乐</span><span class="en">Fun</span></span>
+      </div>
+    </div>
   </div>
 </header>
 
-<section class="strip">
-  <h2>不是又一个秒表 App</h2>
-  <p>大多数时间记录工具要你<span class="hl">手动开始计时</span> —— 坚持几天就放弃了。TimeFlow 反过来：<span class="hl">被动采集</span>你已有的健康、运动、位置数据，自动拼出一天的时间块，你只需要<span class="hl">确认</span>。然后 AI 找出异常和因果，告诉你时间花哪了、哪里可以更好。</p>
+<!-- ===================== POSITIONING ===================== -->
+<section class="posit">
+  <div class="container">
+    <h2 class="h2 reveal"><span class="zh">不是又一个秒表 App</span><span class="en">Not another stopwatch app</span></h2>
+    <p class="reveal">
+      <span class="zh">大多数时间记录工具要你<span class="hl">手动开始计时</span> —— 坚持几天就放弃了。TimeFlow 反过来：<span class="hl">被动采集</span>你已有的健康、运动、位置数据自动拼出时间块，你只需要<span class="hl">确认</span>；想精确追踪时，点一下分类<span class="hl">主动计时</span>。然后 AI 把这一切变成看得懂、用得上的洞察。</span>
+      <span class="en">Most time trackers make you <span class="hl">start a timer manually</span> — and you quit within days. TimeFlow flips it: it <span class="hl">passively</span> pieces your day together from health, motion and location data — you just <span class="hl">confirm</span>; and when you want precision, tap a category to <span class="hl">track actively</span>. Then AI turns it all into insight you can actually use.</span>
+    </p>
+  </div>
 </section>
 
-<section class="features">
-  <div class="grid">
-    <div class="card">
-      <div class="ic">🛌</div>
-      <h3>自动记录，不打扰</h3>
-      <p>睡眠（像 Life Cycle 一样精确测入睡/起床）、步行跑步、开车骑行通勤、常去地点、Mac 电脑各 app 使用时长 —— 全部自动识别成待确认的时间块。</p>
-    </div>
-    <div class="card">
-      <div class="ic">✨</div>
-      <h3>AI 看出门道</h3>
-      <p>接入你自己的 Claude / Gemini / DeepSeek / Kimi / 豆包，按周/月分析时间结构、找异常因果、给下周可执行的建议 —— 不止是好看的图表。</p>
-    </div>
-    <div class="card">
-      <div class="ic">🔒</div>
-      <h3>隐私是底线，不是卖点</h3>
-      <p>没有账户、没有我们的服务器。数据只存你自己的设备和 iCloud 私有库。原始坐标、地址、备注<strong>绝不</strong>发给任何 AI；连开发者都看不到你的数据。</p>
-    </div>
-    <div class="card">
-      <div class="ic">🎙️</div>
-      <h3>补记只要一句话</h3>
-      <p>忘了记？长按按钮说一句「下午两点到四点在游泳」，AI 自动拆成时间块。日历上拖一拖也能改，15 分钟精度。</p>
+<!-- ===================== 01 · 记录不痛苦 (dual model) ===================== -->
+<section class="section">
+  <div class="container">
+    <p class="kicker reveal"><span class="num">01</span> · <span class="zh">让记录不痛苦</span><span class="en">Painless by design</span></p>
+    <h2 class="h2 reveal" style="max-width:680px;margin-bottom:14px"><span class="zh">两种方式记录，<br/>都不用一直盯着</span><span class="en">Two ways to record —<br/>neither needs babysitting</span></h2>
+    <p class="lede reveal" style="max-width:600px;margin-bottom:40px"><span class="zh">这就是你愿意连续记录 30 天的原因：记录这件事几乎不占用注意力。</span><span class="en">This is why you'll keep it up for 30 days straight — recording barely costs any attention.</span></p>
+    <div class="dual reveal">
+      <div class="card blue">
+        <span class="edge"></span>
+        <span class="tag"><span class="zh">蓝 · 被动 AI 识别</span><span class="en">Blue · Passive AI</span></span>
+        <h3><span class="zh">AI 自动拼出你的一天</span><span class="en">AI pieces your day together</span></h3>
+        <p><span class="zh">睡眠、通勤、运动、静止——AI 从健康 / 运动 / 位置数据识别成待确认的时间块，灵动岛实时显示，长按一键确认或改正。</span><span class="en">Sleep, commutes, workouts, focus — AI detects them from Health / Motion / Location as pending blocks, shown live in the Dynamic Island. Long-press to confirm or correct.</span></p>
+      </div>
+      <div class="card green">
+        <span class="edge"></span>
+        <span class="tag"><span class="zh">绿 · 主动追踪</span><span class="en">Green · Active tracking</span></span>
+        <h3><span class="zh">想精确时，点一下就计时</span><span class="en">Tap once when you want precision</span></h3>
+        <p><span class="zh">从桌面小组件点分类 → 选项目 → 直接计时，全程不用打开 App。忘了记？长按说一句「下午两点到四点游泳」，AI 自动拆成时间块。</span><span class="en">From the home-screen widget: tap a category → pick a project → it times right there, never opening the app. Forgot? Long-press and say "swam 2–4pm" — AI splits it into blocks.</span></p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="privacy">
-  <div class="box">
-    <h2>你的时间，只属于你</h2>
-    <p>TimeFlow 默认完全离线工作。数据离开设备只有一种情况：你主动点「生成 AI 洞察」，且按你选的隐私级别脱敏后，才发给你自己配置的 AI 服务商。我们不收集姓名、邮箱、设备 ID、使用统计或崩溃数据 —— 因为我们根本没有收集数据的服务器。</p>
-    <div class="pills">
-      <span class="pill">零服务器</span>
-      <span class="pill">零账户</span>
-      <span class="pill">本地 + 你的 iCloud</span>
-      <span class="pill">三档隐私级别</span>
-      <span class="pill">一键导出 / 清空</span>
+<!-- ===================== 02 · 看清 (calendar) ===================== -->
+<section class="section-sm">
+  <div class="container">
+    <div class="vblock reveal">
+      <div class="vb-media">
+        <div class="glow" style="background:radial-gradient(50% 50% at 50% 50%, rgba(59,130,246,0.30), transparent 70%)"></div>
+        <div class="shot"><img src="assets/calendar.png" alt="TimeFlow 日历周视图" width="1206" height="2622" loading="lazy"/></div>
+      </div>
+      <div class="vb-body">
+        <p class="kicker c-work"><span class="num">02</span> · <span class="zh">看清</span><span class="en">See</span></p>
+        <h2 class="h2"><span class="zh">一整天，<br/>拼成看得懂的时间块</span><span class="en">A whole day,<br/>as blocks you can read</span></h2>
+        <p><span class="zh">日历周视图把每一段时间按 7 大分类涂上颜色。虚线框 + ✨ 是 AI 自动识别、等你确认的；实线是已确认的。一眼就知道时间真正去了哪。</span><span class="en">The weekly calendar paints every stretch of time in one of 7 categories. Dashed + ✨ means AI detected it and is waiting for your confirm; solid means confirmed. One glance shows where time truly went.</span></p>
+        <ul class="vlist">
+          <li><span class="tick">✓</span><span class="zh"><b>15 分钟精度</b> · 拖一拖就能改时间、分类、项目</span><span class="en"><b>15-minute precision</b> · drag to adjust time, category, project</span></li>
+          <li><span class="tick">✓</span><span class="zh"><b>日 / 3 日 / 周 / 月</b> 四种视图自由切换</span><span class="en"><b>Day / 3-day / week / month</b> views, switch freely</span></li>
+          <li><span class="tick">✓</span><span class="zh">空白时段一目了然——没记录的地方不会假装记录了</span><span class="en">Gaps are obvious — untracked time isn't faked as tracked</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <span class="logo" style="font-size:14px"><span class="mk" style="width:20px;height:20px;border-radius:6px">
-    <svg viewBox="0 0 100 100"><path d="M 50 14 A 36 36 0 0 1 86 50" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/><circle cx="50" cy="50" r="4" fill="#fff"/></svg>
-  </span>TimeFlow</span>
-  <span class="spacer"></span>
-  <a href="privacy.html">隐私政策</a>
-  <a href="support.html">支持</a>
-  <a href="mailto:timeflow.app@gmail.com">timeflow.app@gmail.com</a>
-  <span class="mono" style="width:100%;opacity:0.7">© 2026 TimeFlow · 独立开发者作品 · 不属于任何公司</span>
+<!-- ===================== 03 · 趋势 (insights) ===================== -->
+<section class="section-sm">
+  <div class="container">
+    <div class="vblock flip reveal">
+      <div class="vb-media">
+        <div class="glow" style="background:radial-gradient(50% 50% at 50% 50%, rgba(48,209,88,0.28), transparent 70%)"></div>
+        <div class="shot"><img src="assets/insights.png" alt="TimeFlow 洞察与趋势" width="1206" height="2622" loading="lazy"/></div>
+      </div>
+      <div class="vb-body">
+        <p class="kicker"><span class="num">03</span> · <span class="zh">趋势</span><span class="en">Trends</span></p>
+        <h2 class="h2"><span class="zh">和上周比，<br/>你过得更好了吗？</span><span class="en">Versus last week —<br/>are you doing better?</span></h2>
+        <p><span class="zh">本周 / 本月 / 近 30 天 / 今年随意切换。一个环看清总时长与各类占比，再看覆盖率、各分类相比上一周期的涨跌——趋势比某一天的数字重要得多。</span><span class="en">Switch between this week / month / 30 days / year. One ring shows total hours and category share; then see your coverage and how each category rose or fell vs. the previous period — trend matters far more than any single day.</span></p>
+        <ul class="vlist">
+          <li><span class="tick">✓</span><span class="zh"><b>vs 上期</b> · 每个分类的 ↑↓ 一目了然</span><span class="en"><b>vs previous</b> · every category's ↑↓ at a glance</span></li>
+          <li><span class="tick">✓</span><span class="zh"><b>覆盖率</b> · 你的一天有多少被真正记录下来</span><span class="en"><b>Coverage</b> · how much of your day is actually captured</span></li>
+          <li><span class="tick">✓</span><span class="zh"><b>周的形状</b> · 堆叠柱看出每天的节奏差异</span><span class="en"><b>Shape of the week</b> · stacked bars reveal daily rhythm</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 · 优化 (AI advice) ===================== -->
+<section class="section-sm">
+  <div class="container">
+    <div class="vblock reveal">
+      <div class="vb-media">
+        <div class="glow" style="background:radial-gradient(50% 50% at 50% 50%, rgba(234,179,8,0.24), transparent 70%)"></div>
+        <div class="shot"><img src="assets/settings.png" alt="TimeFlow AI 提供商与隐私级别" width="1206" height="2622" loading="lazy"/></div>
+      </div>
+      <div class="vb-body">
+        <p class="kicker c-fun"><span class="num">04</span> · <span class="zh">优化</span><span class="en">Optimize</span></p>
+        <h2 class="h2"><span class="zh">下周该减少、<br/>增加、保持什么？</span><span class="en">What to cut, add,<br/>and keep next week?</span></h2>
+        <p><span class="zh">不止是「花了多久」。接入你自己的 AI（Claude · Gemini · DeepSeek · Kimi · 豆包），按周 / 月关联睡眠 × 健身 × 工作，找出异常的真正原因，并给一个具体、可执行的下周实验。</span><span class="en">More than "how long." Bring your own AI (Claude · Gemini · DeepSeek · Kimi · Doubao) to correlate sleep × fitness × work weekly or monthly, find the real cause behind anomalies, and hand you one concrete, doable experiment for next week.</span></p>
+        <ul class="vlist">
+          <li><span class="tick">✓</span><span class="zh"><b>因果，不只是图表</b> · 「睡眠不足 → 下午工作效率掉 30%」</span><span class="en"><b>Causes, not just charts</b> · "low sleep → 30% less afternoon focus"</span></li>
+          <li><span class="tick">✓</span><span class="zh"><b>减少 / 增加 / 保持</b> · 每周一句明确的行动建议</span><span class="en"><b>Cut / add / keep</b> · one clear action per week</span></li>
+          <li><span class="tick">✓</span><span class="zh"><b>用你自己的 Key（BYOK）</b> · 模型、费用、隐私你说了算</span><span class="en"><b>Bring your own key</b> · you control model, cost and privacy</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRIVACY ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="privacy-wrap reveal">
+      <p class="kicker" style="justify-content:center"><span class="num">05</span> · <span class="zh">隐私</span><span class="en">Privacy</span></p>
+      <h2 class="h2"><span class="zh">你的时间，只属于你</span><span class="en">Your time is yours alone</span></h2>
+      <p><span class="zh">没有账户、没有我们的服务器（无需注册登录）。数据自动同步到<b>你自己的</b>加密 iCloud —— 只在你的设备之间，苹果和我们都读不到。除此之外，数据离开你的掌控只在你主动点「生成 AI 洞察」时、且按你选的隐私级别脱敏后，才发给你自己配置的 AI 服务商。</span><span class="en">No account, no server of ours (no sign-up). Your data auto-syncs to <b>your own</b> encrypted iCloud — only between your devices, unreadable by Apple or us. Beyond that, data leaves your control only when you tap "Generate AI insight", redacted to the privacy level you chose, sent to the AI provider you configured.</span></p>
+      <div class="pills">
+        <span class="pill"><span class="zh">零服务器</span><span class="en">Zero servers</span></span>
+        <span class="pill"><span class="zh">零账户</span><span class="en">Zero accounts</span></span>
+        <span class="pill"><span class="zh">本地 + 你的 iCloud</span><span class="en">Local + your iCloud</span></span>
+        <span class="pill"><span class="zh">API Key 存 Keychain</span><span class="en">Key in Keychain</span></span>
+        <span class="pill"><span class="zh">一键导出 / 清空</span><span class="en">One-tap export / wipe</span></span>
+      </div>
+      <div class="privacy-levels">
+        <div class="lvl l1"><span class="badge-l">L1</span><h4><span class="zh">隐私优先</span><span class="en">Privacy-first</span></h4><p><span class="zh">只发聚合占比 / 时长统计，不含项目名、地点。</span><span class="en">Only aggregate share & durations — no names, no places.</span></p></div>
+        <div class="lvl l2"><span class="badge-l">L2</span><h4><span class="zh">匿名上下文</span><span class="en">Anonymized context</span></h4><p><span class="zh">+ 匿名化时间块图案，项目名替换为 A / B / C。</span><span class="en">+ anonymized block patterns; names become A / B / C.</span></p></div>
+        <div class="lvl l3"><span class="badge-l">L3</span><h4><span class="zh">完整上下文</span><span class="en">Full context</span></h4><p><span class="zh">+ 项目名与自定义分类名，可在设置随时切换。</span><span class="en">+ project & custom category names; switch anytime in Settings.</span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="section-sm">
+  <div class="container">
+    <p class="kicker reveal" style="justify-content:center"><span class="num">06</span> · <span class="zh">价格</span><span class="en">Pricing</span></p>
+    <h2 class="h2 reveal" style="text-align:center;margin-bottom:40px"><span class="zh">核心功能免费，<br/>进阶能力可订阅解锁</span><span class="en">Core is free.<br/>Power features unlock with Pro.</span></h2>
+    <div class="price-grid reveal">
+      <div class="price">
+        <div class="pname">Free</div>
+        <div class="pamt"><span class="zh">¥0</span><span class="en">$0</span></div>
+        <div class="psub"><span class="zh">永久免费 · 自带 AI Key</span><span class="en">Free forever · bring your own key</span></div>
+        <ul>
+          <li><span class="tick">✓</span><span class="zh">被动识别 + 主动追踪</span><span class="en">Passive detect + active tracking</span></li>
+          <li><span class="tick">✓</span><span class="zh">日历 · 洞察 · 项目 · 趋势</span><span class="en">Calendar · insights · projects · trends</span></li>
+          <li><span class="tick">✓</span><span class="zh">桌面 / 锁屏小组件</span><span class="en">Home & lock-screen widgets</span></li>
+          <li><span class="tick">✓</span><span class="zh">本地存储 + iCloud 同步</span><span class="en">Local storage + iCloud sync</span></li>
+        </ul>
+      </div>
+      <div class="price pro">
+        <div class="pname">Pro</div>
+        <div class="pamt"><span class="zh">订阅</span><span class="en">Subscription</span></div>
+        <div class="psub"><span class="zh">解锁进阶 AI 与无限历史</span><span class="en">Unlock advanced AI & unlimited history</span></div>
+        <ul>
+          <li><span class="tick">✓</span><span class="zh">无限 AI 洞察 + 深度因果分析</span><span class="en">Unlimited AI insights + deep causal analysis</span></li>
+          <li><span class="tick">✓</span><span class="zh">无限历史数据与导出</span><span class="en">Unlimited history & export</span></li>
+          <li><span class="tick">✓</span><span class="zh">每周复盘推送 + 目标追踪</span><span class="en">Weekly review push + goal tracking</span></li>
+          <li><span class="tick">✓</span><span class="zh">优先支持新功能</span><span class="en">Priority access to new features</span></li>
+        </ul>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--ink-4);font-size:13px;margin-top:22px" class="reveal"><span class="zh">最终价格将在上架时公布。</span><span class="en">Final pricing announced at launch.</span></p>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="section" id="notify">
+  <div class="container">
+    <div class="final reveal">
+      <h2 class="h2"><span class="zh">上架时，第一时间告诉你</span><span class="en">Be the first to know at launch</span></h2>
+      <p><span class="zh">还在做最后的打磨。留个邮箱，App Store 上架当天通知你——不发广告，只发这一封。</span><span class="en">We're putting on the final polish. Leave your email and we'll ping you the day it hits the App Store — no spam, just that one note.</span></p>
+      <div class="final-cta">
+        <a class="btn btn-primary btn-lg" href="mailto:timeflow.app@gmail.com?subject=Notify%20me%20when%20TimeFlow%20launches&body=Please%20notify%20me%20when%20TimeFlow%20is%20on%20the%20App%20Store."><span class="zh">📬 上架通知我</span><span class="en">📬 Notify me at launch</span></a>
+        <a class="btn btn-ghost btn-lg" href="feedback.html"><span class="zh">提个想法 / 反馈</span><span class="en">Share an idea</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow</a>
+        <p><span class="zh">让你看见时间真正去向的 iOS app。被动识别 + 主动追踪 + AI 洞察。隐私优先。</span><span class="en">The iOS app that shows where your time really goes. Passive detect + active tracking + AI insight. Privacy-first.</span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">产品</span><span class="en">Product</span></h4>
+        <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+        <a href="changelog.html"><span class="zh">更新日志 / Roadmap</span><span class="en">Changelog / Roadmap</span></a>
+        <a href="#notify"><span class="zh">上架通知</span><span class="en">Launch notice</span></a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">支持</span><span class="en">Support</span></h4>
+        <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+        <a href="feedback.html"><span class="zh">反馈 / 建议</span><span class="en">Feedback</span></a>
+        <a href="mailto:timeflow.app@gmail.com">timeflow.app@gmail.com</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">法律</span><span class="en">Legal</span></h4>
+        <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy Policy</span></a>
+        <a href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">GitHub Issues</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> TimeFlow</span>
+      <span class="zh">独立开发者作品 · 不属于任何公司</span><span class="en">An indie project · not affiliated with any company</span>
+      <span class="sp"></span>
+      <span>seetimeflow.com</span>
+    </div>
+  </div>
 </footer>
 
+<script src="site.js"></script>
 </body>
 </html>

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title data-en="TimeFlow — Changelog & Roadmap">TimeFlow — 更新日志与 Roadmap</title>
+<meta name="description" content="TimeFlow 的进展与计划：已完成、进行中、计划中。"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="assets/app-icon.png"/>
+<link rel="apple-touch-icon" href="assets/app-icon.png"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+  .cl-head { padding: 56px 0 8px; position: relative; overflow: hidden; }
+  .cl-head::before { content:""; position:absolute; inset:-30% -10% auto; height:320px;
+    background: radial-gradient(50% 70% at 30% 20%, rgba(48,209,88,0.12), transparent 60%); pointer-events:none; }
+  .status-card { display:flex; flex-wrap:wrap; align-items:center; gap:18px; margin-top:28px; padding:22px 26px;
+    background: linear-gradient(180deg, rgba(48,209,88,0.06), transparent 70%), var(--surface);
+    border:1px solid var(--green-line); border-radius:18px; }
+  .status-card .ring { width:54px; height:54px; flex:0 0 auto; position:relative; }
+  .status-card .lbl { flex:1; min-width:200px; }
+  .status-card .lbl .v { font-family:var(--mono); font-size:12px; color:var(--green-bright); letter-spacing:0.1em; }
+  .status-card .lbl .t { font-size:18px; font-weight:700; margin-top:3px; }
+  .status-card .lbl .d { font-size:13.5px; color:var(--ink-3); margin-top:3px; }
+
+  .cl-board { max-width: 820px; margin: 0 auto; padding: 20px 0 30px; }
+  .lane { margin-top: 48px; }
+  .lane-head { display:flex; align-items:center; gap:11px; margin-bottom:22px; }
+  .lane-head .dot { width:11px; height:11px; border-radius:50%; flex:0 0 auto; }
+  .lane-head h2 { font-size:15px; font-family:var(--mono); letter-spacing:0.12em; text-transform:uppercase; font-weight:600; }
+  .lane-head .count { font-family:var(--mono); font-size:12px; color:var(--ink-4); }
+  .lane.done .dot { background:var(--green); } .lane.done h2 { color:var(--green-bright); }
+  .lane.prog .dot { background:var(--c-work); box-shadow:0 0 0 4px rgba(59,130,246,0.18); } .lane.prog h2 { color:#7eb0ff; }
+  .lane.plan .dot { background:var(--ink-3); } .lane.plan h2 { color:var(--ink-2); }
+
+  .items { display:flex; flex-direction:column; gap:12px; }
+  .item { display:flex; gap:16px; padding:18px 20px; border-radius:16px; background:var(--surface); border:1px solid var(--hairline);
+    transition: border-color .15s, transform .15s; }
+  .item:hover { border-color: var(--hairline-2); transform: translateX(2px); }
+  .item .mark { width:30px; height:30px; border-radius:9px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .lane.done .mark { background:var(--green-tint); color:var(--green); }
+  .lane.prog .mark { background:rgba(59,130,246,0.14); color:#7eb0ff; }
+  .lane.plan .mark { background:rgba(255,255,255,0.05); color:var(--ink-3); }
+  .item .body h3 { font-size:16px; font-weight:600; margin:0 0 4px; letter-spacing:-0.01em; }
+  .item .body p { font-size:14px; color:var(--ink-3); margin:0; line-height:1.55; }
+
+  .cl-note { max-width:820px; margin:48px auto 0; text-align:center; font-size:13px; color:var(--ink-4); line-height:1.6; }
+  .cl-note a { color:var(--ink-3); text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow</a>
+    <div class="nav-links">
+      <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+      <a href="help.html"><span class="zh">帮助</span><span class="en">Help</span></a>
+      <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+      <a href="changelog.html" class="active"><span class="zh">更新</span><span class="en">Changelog</span></a>
+      <a href="privacy.html"><span class="zh">隐私</span><span class="en">Privacy</span></a>
+    </div>
+    <span class="nav-spacer"></span>
+    <div class="nav-right">
+      <div class="lang-toggle"><button data-lang-btn="zh">中</button><button data-lang-btn="en">EN</button></div>
+      <a class="btn btn-primary nav-cta" href="index.html#notify"><span class="zh">通知我</span><span class="en">Notify me</span></a>
+      <button class="hamburger" data-burger aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+    </div>
+  </div>
+</nav>
+<div class="drawer" data-drawer>
+  <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+  <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+  <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+  <a href="changelog.html"><span class="zh">更新日志</span><span class="en">Changelog</span></a>
+  <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy</span></a>
+</div>
+
+<header class="cl-head dotgrid">
+  <div class="container">
+    <p class="kicker"><span class="num">●</span> <span class="zh">进展 &amp; Roadmap</span><span class="en">Progress &amp; roadmap</span></p>
+    <h1 class="h2"><span class="zh">我们做到哪了，<br/>接下来做什么</span><span class="en">Where we are,<br/>and what's next</span></h1>
+    <div class="status-card">
+      <div class="ring">
+        <svg viewBox="0 0 54 54" style="transform:rotate(-90deg)">
+          <circle cx="27" cy="27" r="22" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="5"/>
+          <circle cx="27" cy="27" r="22" fill="none" stroke="#30d158" stroke-width="5" stroke-linecap="round" stroke-dasharray="138" stroke-dashoffset="38"/>
+        </svg>
+      </div>
+      <div class="lbl">
+        <div class="v">BUILD v0.1.0 · MVP</div>
+        <div class="t"><span class="zh">正在冲刺 1.0，即将上架</span><span class="en">Sprinting toward 1.0 — launching soon</span></div>
+        <div class="d"><span class="zh">核心功能已就绪，正在做上架前最后打磨。</span><span class="en">Core is ready; doing the final polish before submission.</span></div>
+      </div>
+      <a class="btn btn-primary" href="index.html#notify"><span class="zh">上架通知我</span><span class="en">Notify me</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="cl-board">
+
+    <!-- IN PROGRESS -->
+    <section class="lane prog reveal">
+      <div class="lane-head"><span class="dot"></span><h2><span class="zh">进行中</span><span class="en">In progress</span></h2><span class="count">3</span></div>
+      <div class="items">
+        <div class="item">
+          <span class="mark">🛠</span>
+          <div class="body"><h3><span class="zh">Onboarding 重做 + 引导动画</span><span class="en">Onboarding redo + guided animation</span></h3>
+          <p><span class="zh">首次启动时更清楚地讲明白「被动 + 主动」两条线怎么用。</span><span class="en">A first-run flow that clearly explains the passive + active model.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">🛠</span>
+          <div class="body"><h3><span class="zh">AI 洞察流式输出</span><span class="en">Streaming AI insights</span></h3>
+          <p><span class="zh">边生成边显示，不用再等 30 秒。</span><span class="en">Show results as they generate — no more 30-second wait.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">🛠</span>
+          <div class="body"><h3><span class="zh">每晚未记录时段提醒</span><span class="en">Nightly untracked-time reminder</span></h3>
+          <p><span class="zh">每晚 22:00 温和提醒你补上空白时段。</span><span class="en">A gentle 10pm nudge to fill in gaps from your day.</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANNED -->
+    <section class="lane plan reveal">
+      <div class="lane-head"><span class="dot"></span><h2><span class="zh">计划中</span><span class="en">Planned</span></h2><span class="count">3</span></div>
+      <div class="items">
+        <div class="item">
+          <span class="mark">◷</span>
+          <div class="body"><h3><span class="zh">英文版 (i18n)</span><span class="en">English localization (i18n)</span></h3>
+          <p><span class="zh">App 内全面支持英文，面向全球用户。</span><span class="en">Full in-app English for a global audience.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">◷</span>
+          <div class="body"><h3><span class="zh">共享 AI Key 免费额度</span><span class="en">Shared free AI quota</span></h3>
+          <p><span class="zh">没有 API Key 也能用：每月 100 次免费 AI 洞察。</span><span class="en">Use AI without your own key: 100 free insights per month.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">◷</span>
+          <div class="body"><h3><span class="zh">上架 App Store</span><span class="en">App Store launch</span></h3>
+          <p><span class="zh">提交审核并正式发布。<a href="index.html#notify" style="color:var(--green-bright)">留邮箱</a>第一时间知道。</span><span class="en">Submit for review and ship. <a href="index.html#notify" style="color:var(--green-bright)">Leave your email</a> to hear first.</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHIPPED -->
+    <section class="lane done reveal">
+      <div class="lane-head"><span class="dot"></span><h2><span class="zh">已完成</span><span class="en">Shipped</span></h2><span class="count">6</span></div>
+      <div class="items">
+        <div class="item">
+          <span class="mark">✓</span>
+          <div class="body"><h3><span class="zh">7 类别时间系统 + 项目</span><span class="en">7-category system + projects</span></h3>
+          <p><span class="zh">睡觉 / 工作 / 生活 / 健身 / 学习 / 反思 / 娱乐，每类可建多个项目并设目标。</span><span class="en">Sleep / Work / Life / Fitness / Study / Reflect / Fun, each with projects and goals.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">✓</span>
+          <div class="body"><h3><span class="zh">被动 AI 识别 + 灵动岛</span><span class="en">Passive AI detection + Dynamic Island</span></h3>
+          <p><span class="zh">从健康 / 运动 / 位置自动拼出时间块，灵动岛实时显示、一键确认。</span><span class="en">Auto-pieced blocks from Health / Motion / Location, live in the Dynamic Island with one-tap confirm.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">✓</span>
+          <div class="body"><h3><span class="zh">四大主屏：日历 · 洞察 · 项目 · 设置</span><span class="en">Four core screens: calendar · insights · projects · settings</span></h3>
+          <p><span class="zh">周视图时间块、时间去向环与趋势、项目分组、数据与 AI 设置。</span><span class="en">Weekly blocks, the time-flow ring & trends, grouped projects, data & AI settings.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">✓</span>
+          <div class="body"><h3><span class="zh">桌面 / 锁屏小组件 + Apple Watch</span><span class="en">Home / lock-screen widgets + Apple Watch</span></h3>
+          <p><span class="zh">窗口内下钻计时、今日时间带、目标进度，抬腕即见。</span><span class="en">In-widget drill-down timing, today's time bar, goal progress — right on your wrist.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">✓</span>
+          <div class="body"><h3><span class="zh">App 图标三件套（Light / Dark / Tinted）</span><span class="en">App icon trio (Light / Dark / Tinted)</span></h3>
+          <p><span class="zh">适配 iOS 18 的三种主屏外观。</span><span class="en">Adapts to all three iOS 18 home-screen appearances.</span></p></div>
+        </div>
+        <div class="item">
+          <span class="mark">✓</span>
+          <div class="body"><h3><span class="zh">三档隐私级别 + 导出 / 备份</span><span class="en">Three privacy levels + export / backup</span></h3>
+          <p><span class="zh">L1 / L2 / L3 控制发给 AI 的内容；JSON / CSV 一键导出。</span><span class="en">L1 / L2 / L3 control what's sent to AI; one-tap JSON / CSV export.</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="cl-note reveal">
+      <span class="zh">想要某个功能、或觉得优先级该调整？<a href="feedback.html">告诉我们</a> —— roadmap 也公开在 <a href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">GitHub Issues</a>。</span>
+      <span class="en">Want a feature or think priorities should shift? <a href="feedback.html">Tell us</a> — the roadmap is also public on <a href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">GitHub Issues</a>.</span>
+    </p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow</a>
+        <p><span class="zh">让你看见时间真正去向的 iOS app。被动识别 + 主动追踪 + AI 洞察。隐私优先。</span><span class="en">The iOS app that shows where your time really goes. Passive detect + active tracking + AI insight. Privacy-first.</span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">产品</span><span class="en">Product</span></h4>
+        <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+        <a href="changelog.html"><span class="zh">更新日志 / Roadmap</span><span class="en">Changelog / Roadmap</span></a>
+        <a href="index.html#notify"><span class="zh">上架通知</span><span class="en">Launch notice</span></a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">支持</span><span class="en">Support</span></h4>
+        <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+        <a href="feedback.html"><span class="zh">反馈 / 建议</span><span class="en">Feedback</span></a>
+        <a href="mailto:timeflow.app@gmail.com">timeflow.app@gmail.com</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">法律</span><span class="en">Legal</span></h4>
+        <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy Policy</span></a>
+        <a href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">GitHub Issues</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> TimeFlow</span>
+      <span class="zh">独立开发者作品 · 不属于任何公司</span><span class="en">An indie project · not affiliated with any company</span>
+      <span class="sp"></span>
+      <span>seetimeflow.com</span>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

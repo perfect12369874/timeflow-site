@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title data-en="TimeFlow — Help & FAQ">TimeFlow — 帮助与常见问题</title>
+<meta name="description" content="TimeFlow 帮助中心：入门、数据与隐私、功能说明与常见问题。"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="assets/app-icon.png"/>
+<link rel="apple-touch-icon" href="assets/app-icon.png"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+  .page-head { padding: 64px 0 36px; position: relative; overflow: hidden; }
+  .page-head::before { content:""; position:absolute; inset:-20% -10% auto; height:340px;
+    background: radial-gradient(50% 70% at 30% 20%, rgba(48,209,88,0.12), transparent 60%); pointer-events:none; }
+  .page-head h1 { position: relative; }
+  .page-head .lede { max-width: 640px; margin-top: 18px; }
+
+  .help-contact { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; position: relative; }
+  .contact-card { display: flex; align-items: center; gap: 13px; padding: 16px 20px; border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--hairline); flex: 1; min-width: 240px; transition: border-color .15s, transform .15s; }
+  .contact-card:hover { border-color: var(--green-line); transform: translateY(-2px); }
+  .contact-card .ic { width: 42px; height: 42px; border-radius: 12px; background: var(--green-tint);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex: 0 0 auto; }
+  .contact-card .t { font-weight: 600; font-size: 15px; }
+  .contact-card .d { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+
+  .faq-section { margin-top: 56px; }
+  .faq-section > .kicker { margin-bottom: 18px; }
+  details.qa { border-bottom: 1px solid var(--hairline); }
+  details.qa summary {
+    list-style: none; cursor: pointer; padding: 20px 40px 20px 0; position: relative;
+    font-size: 17px; font-weight: 600; color: var(--ink); transition: color .15s;
+  }
+  details.qa summary::-webkit-details-marker { display: none; }
+  details.qa summary:hover { color: var(--green-bright); }
+  details.qa summary::after {
+    content: "+"; position: absolute; right: 4px; top: 18px; font-size: 24px; font-weight: 300;
+    color: var(--ink-3); transition: transform .2s ease; line-height: 1;
+  }
+  details.qa[open] summary::after { transform: rotate(45deg); color: var(--green); }
+  details.qa .a { padding: 0 40px 22px 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.65; }
+  details.qa .a p { margin: 0 0 10px; }
+  details.qa .a p:last-child { margin-bottom: 0; }
+  details.qa .a b { color: var(--ink); font-weight: 600; }
+  details.qa .a ul { margin: 8px 0; padding-left: 20px; }
+  details.qa .a li { margin: 5px 0; }
+  details.qa .a code { font-family: var(--mono); font-size: 13px; background: rgba(255,255,255,0.06);
+    padding: 2px 6px; border-radius: 5px; color: var(--green-bright); }
+  .lvl-chip { display:inline-block; font-family:var(--mono); font-size:11px; font-weight:600; padding:2px 8px;
+    border-radius:6px; margin-right:6px; }
+  .lvl-chip.l1 { color: var(--green); border:1px solid var(--green-line); }
+  .lvl-chip.l2 { color: var(--c-fun); border:1px solid rgba(234,179,8,0.4); }
+  .lvl-chip.l3 { color: var(--ink-2); border:1px solid var(--hairline-2); }
+
+  .help-foot-cta { margin-top: 64px; text-align: center; padding: 44px 28px; border-radius: 24px;
+    background: linear-gradient(180deg, rgba(48,209,88,0.06), transparent 60%), var(--surface);
+    border: 1px solid var(--green-line); }
+  .help-foot-cta h3 { font-size: 24px; margin-bottom: 10px; }
+  .help-foot-cta p { color: var(--ink-2); margin: 0 auto 22px; max-width: 480px; }
+  .help-foot-cta .row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow</a>
+    <div class="nav-links">
+      <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+      <a href="help.html" class="active"><span class="zh">帮助</span><span class="en">Help</span></a>
+      <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+      <a href="changelog.html"><span class="zh">更新</span><span class="en">Changelog</span></a>
+      <a href="privacy.html"><span class="zh">隐私</span><span class="en">Privacy</span></a>
+    </div>
+    <span class="nav-spacer"></span>
+    <div class="nav-right">
+      <div class="lang-toggle"><button data-lang-btn="zh">中</button><button data-lang-btn="en">EN</button></div>
+      <a class="btn btn-primary nav-cta" href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+      <button class="hamburger" data-burger aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+    </div>
+  </div>
+</nav>
+<div class="drawer" data-drawer>
+  <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+  <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+  <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+  <a href="changelog.html"><span class="zh">更新日志</span><span class="en">Changelog</span></a>
+  <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy</span></a>
+</div>
+
+<!-- HEAD -->
+<header class="page-head dotgrid">
+  <div class="container">
+    <p class="kicker"><span class="num">●</span> <span class="zh">帮助中心</span><span class="en">Help center</span></p>
+    <h1 class="h2"><span class="zh">有问题？先看这里</span><span class="en">Questions? Start here</span></h1>
+    <p class="lede"><span class="zh">入门、数据与隐私、功能说明，以及大家最常问的问题。找不到答案就直接发邮件，通常 48 小时内回复。</span><span class="en">Getting started, data & privacy, features, and the questions people ask most. Can't find it? Email us — usually a reply within 48 hours.</span></p>
+    <div class="help-contact">
+      <a class="contact-card" href="mailto:timeflow.app@gmail.com">
+        <span class="ic">📧</span><span><span class="t">timeflow.app@gmail.com</span><span class="d zh">邮件支持 · 约 48h 回复</span><span class="d en">Email support · ~48h reply</span></span>
+      </a>
+      <a class="contact-card" href="feedback.html">
+        <span class="ic">💬</span><span><span class="t zh">提交反馈</span><span class="t en">Send feedback</span><span class="d zh">bug / 功能建议</span><span class="d en">Bugs / feature ideas</span></span>
+      </a>
+      <a class="contact-card" href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">
+        <span class="ic">🐛</span><span><span class="t">GitHub Issues</span><span class="d zh">公开追踪 bug 与 roadmap</span><span class="d en">Public bug & roadmap tracking</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container" style="padding-bottom:40px">
+
+  <!-- 入门 -->
+  <section class="faq-section reveal">
+    <p class="kicker"><span class="num">01</span> · <span class="zh">入门</span><span class="en">Getting started</span></p>
+    <details class="qa" open>
+      <summary><span class="zh">我需要每天手动开始 / 停止计时吗？</span><span class="en">Do I have to start / stop a timer every day?</span></summary>
+      <div class="a">
+        <p class="zh"><b>不需要。</b>开启 健康 + 运动 + 位置 权限后，TimeFlow 会被动识别睡眠、通勤、移动状态，自动补全你的时间表，你只要确认。需要精确追踪某件事时，从桌面小组件点一下分类就能主动计时——也不用打开 App。</p>
+        <p class="en"><b>No.</b> With Health + Motion + Location permissions on, TimeFlow passively detects sleep, commutes and movement and fills in your schedule — you just confirm. When you want to track something precisely, tap a category from the home-screen widget to time it actively — no app launch needed.</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary><span class="zh">我没有 AI 服务商账号也能用吗？</span><span class="en">Can I use it without an AI account?</span></summary>
+      <div class="a">
+        <p class="zh"><b>能。</b>AI 洞察是可选功能。即使不连 AI，TimeFlow 也能完整记录、统计、显示趋势与目标进度。</p>
+        <p class="en"><b>Yes.</b> AI insight is optional. Without any AI connected, TimeFlow still records, tallies, and shows trends and goal progress in full.</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary><span class="zh">支持哪些 AI？哪个更划算？</span><span class="en">Which AI providers are supported? Which is best value?</span></summary>
+      <div class="a">
+        <p class="zh">你<b>自带 Key（BYOK）</b>，可在 设置 → AI 提供商 里随时切换：</p>
+        <ul>
+          <li><b>Claude</b>（Anthropic）— 中文 + 长上下文分析最稳</li>
+          <li><b>Gemini</b>（Google）— 免费额度大，速度快</li>
+          <li><b>DeepSeek</b> — 价格最低，推理强</li>
+          <li><b>Kimi</b>（Moonshot）— 中文 + 国内访问友好</li>
+          <li><b>豆包</b>（方舟）— 国内稳定、延迟低</li>
+        </ul>
+        <p class="en">You <b>bring your own key (BYOK)</b> and can switch anytime in Settings → AI provider:</p>
+        <ul>
+          <li><b>Claude</b> (Anthropic) — most reliable for Chinese & long context</li>
+          <li><b>Gemini</b> (Google) — generous free tier, fast</li>
+          <li><b>DeepSeek</b> — lowest cost, strong reasoning</li>
+          <li><b>Kimi</b> (Moonshot) — great for Chinese & China access</li>
+          <li><b>Doubao</b> (Volcengine) — stable & low-latency in China</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- 数据 & 隐私 -->
+  <section class="faq-section reveal">
+    <p class="kicker"><span class="num">02</span> · <span class="zh">数据 &amp; 隐私</span><span class="en">Data &amp; privacy</span></p>
+    <details class="qa">
+      <summary><span class="zh">我的数据存在哪里？</span><span class="en">Where is my data stored?</span></summary>
+      <div class="a">
+        <p class="zh">默认全部在你 iPhone 本地的 SwiftData 数据库里。如果开启 iCloud 同步，数据通过你<b>私有的</b> iCloud 在你的 Apple 设备间同步。我们没有服务器，看不到你的数据。详见 <a href="privacy.html" style="color:var(--green-bright)">隐私政策</a>。</p>
+        <p class="en">By default, everything lives in a local SwiftData database on your iPhone. If you enable iCloud sync, data syncs across your Apple devices through <b>your private</b> iCloud. We have no servers and cannot see your data. See the <a href="privacy.html" style="color:var(--green-bright)">Privacy Policy</a>.</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary><span class="zh">发给 AI 的数据是什么？</span><span class="en">What data is sent to the AI?</span></summary>
+      <div class="a">
+        <p class="zh">取决于你的 AI 隐私级别：</p>
+        <p class="zh"><span class="lvl-chip l1">L1</span>只发聚合占比 / 时长统计</p>
+        <p class="zh"><span class="lvl-chip l2">L2</span>+ 匿名化时间块图案（无项目名 / 无位置）</p>
+        <p class="zh"><span class="lvl-chip l3">L3</span>+ 完整上下文（项目名、自定义分类名）</p>
+        <p class="zh">随时在 设置 → AI 隐私级别 调整。</p>
+        <p class="en">It depends on your AI privacy level:</p>
+        <p class="en"><span class="lvl-chip l1">L1</span>aggregate share & durations only</p>
+        <p class="en"><span class="lvl-chip l2">L2</span>+ anonymized block patterns (no names / no location)</p>
+        <p class="en"><span class="lvl-chip l3">L3</span>+ full context (project & custom category names)</p>
+        <p class="en">Adjust anytime in Settings → AI privacy level.</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary><span class="zh">怎么删掉所有数据？能导出吗？</span><span class="en">How do I wipe everything? Can I export?</span></summary>
+      <div class="a">
+        <p class="zh"><b>删除：</b>设置 → 数据与隐私 → 清空所有数据。直接卸载 App 也会一起清除 Keychain 里的 API Key。</p>
+        <p class="zh"><b>导出：</b>设置 → 导出 / 备份 → <code>JSON</code> 或 <code>CSV</code>，通过分享面板发送或存到 iCloud Drive。</p>
+        <p class="en"><b>Wipe:</b> Settings → Data & privacy → Erase all data. Deleting the app also clears the API key from Keychain.</p>
+        <p class="en"><b>Export:</b> Settings → Export / backup → <code>JSON</code> or <code>CSV</code>, via the share sheet or to iCloud Drive.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 功能 -->
+  <section class="faq-section reveal">
+    <p class="kicker"><span class="num">03</span> · <span class="zh">功能</span><span class="en">Features</span></p>
+    <details class="qa">
+      <summary><span class="zh">分类和项目有什么区别？</span><span class="en">What's the difference between categories and projects?</span></summary>
+      <div class="a">
+        <p class="zh"><b>分类</b>是顶层，固定 7 个（睡觉 / 工作 / 生活 / 健身 / 学习 / 反思 / 娱乐），不能改名或删除，但能改 emoji / 颜色。<b>项目</b>是分类下你自己创建的子项——比如「工作」下可以有「Project Alpha」「SysOps Migration」。</p>
+        <p class="en"><b>Categories</b> are the fixed top level — 7 of them (Sleep / Work / Life / Fitness / Study / Reflect / Fun); you can't rename or delete them, but you can change emoji / color. <b>Projects</b> are sub-items you create under a category — e.g. "Project Alpha" and "SysOps Migration" under Work.</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary><span class="zh">能设置目标吗？</span><span class="en">Can I set goals?</span></summary>
+      <div class="a">
+        <p class="zh">每个项目都能。编辑项目 → 打开「设定目标」→ 选周期（每天 / 每周 / 每月 / 每年 / 间隔 N 天）+ 时长。在 洞察 → 目标 里能看到所有进度，每周复盘会推送给你。</p>
+        <p class="en">Yes, per project. Edit project → enable "Set goal" → choose a cycle (daily / weekly / monthly / yearly / every N days) + duration. See all progress in Insights → Goals, with a weekly review pushed to you.</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary><span class="zh">怎么修改已记录的时间块？</span><span class="en">How do I edit a recorded time block?</span></summary>
+      <div class="a">
+        <p class="zh">点一下时间块就会弹出编辑底卡，可以调起止时间、时长、分类、项目，也能补一句语音或文字备注。日历上直接拖拽也行，15 分钟精度。</p>
+        <p class="en">Tap a block to open the editor sheet — adjust start/end, duration, category, project, and add a voice or text note. You can also drag it on the calendar; 15-minute precision.</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary><span class="zh">为什么我的睡眠图表是空的？</span><span class="en">Why is my sleep chart empty?</span></summary>
+      <div class="a">
+        <p class="zh">说明 健康 app 没给到睡眠数据。两个可能：① 没有睡眠追踪——在 健康 app 手动添加，或开启 iPhone / Apple Watch 自动睡眠检测；② 没给 TimeFlow 健康权限——设置 → TimeFlow → 健康 → 允许「睡眠分析」。</p>
+        <p class="en">It means the Health app has no sleep data. Two causes: ① no sleep tracking — add it manually in Health, or enable auto sleep detection on iPhone / Apple Watch; ② TimeFlow lacks Health permission — Settings → TimeFlow → Health → allow "Sleep Analysis".</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="help-foot-cta reveal">
+    <h3><span class="zh">没找到答案？</span><span class="en">Still stuck?</span></h3>
+    <p><span class="zh">发邮件附上设备型号、iOS 版本、App 版本号和重现步骤，我们会尽快帮你看看。</span><span class="en">Email us with your device model, iOS version, app build number and steps to reproduce — we'll dig in fast.</span></p>
+    <div class="row">
+      <a class="btn btn-primary" href="mailto:timeflow.app@gmail.com?subject=TimeFlow%20Support"><span class="zh">📧 联系支持</span><span class="en">📧 Contact support</span></a>
+      <a class="btn btn-ghost" href="feedback.html"><span class="zh">提交反馈</span><span class="en">Send feedback</span></a>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow</a>
+        <p><span class="zh">让你看见时间真正去向的 iOS app。被动识别 + 主动追踪 + AI 洞察。隐私优先。</span><span class="en">The iOS app that shows where your time really goes. Passive detect + active tracking + AI insight. Privacy-first.</span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">产品</span><span class="en">Product</span></h4>
+        <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+        <a href="changelog.html"><span class="zh">更新日志 / Roadmap</span><span class="en">Changelog / Roadmap</span></a>
+        <a href="index.html#notify"><span class="zh">上架通知</span><span class="en">Launch notice</span></a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">支持</span><span class="en">Support</span></h4>
+        <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+        <a href="feedback.html"><span class="zh">反馈 / 建议</span><span class="en">Feedback</span></a>
+        <a href="mailto:timeflow.app@gmail.com">timeflow.app@gmail.com</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">法律</span><span class="en">Legal</span></h4>
+        <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy Policy</span></a>
+        <a href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">GitHub Issues</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> TimeFlow</span>
+      <span class="zh">独立开发者作品 · 不属于任何公司</span><span class="en">An indie project · not affiliated with any company</span>
+      <span class="sp"></span>
+      <span>seetimeflow.com</span>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

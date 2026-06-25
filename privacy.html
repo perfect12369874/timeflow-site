@@ -1,148 +1,273 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="zh">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TimeFlow · 隐私政策</title>
+<title data-en="TimeFlow — Privacy Policy">TimeFlow — 隐私政策</title>
+<meta name="description" content="TimeFlow 隐私政策：零服务器、零账户，数据默认只存你的设备与私有 iCloud。"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="assets/app-icon.png"/>
+<link rel="apple-touch-icon" href="assets/app-icon.png"/>
+<link rel="stylesheet" href="styles.css"/>
 <style>
-  :root {
-    --bg: #fafaf8;
-    --text: #1a1a1c;
-    --text-2: #5a5a5e;
-    --brand: #16a34a;
-    --line: rgba(0,0,0,0.08);
-    --code-bg: rgba(22,163,74,0.08);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0a0a0b; --text: #f2f4f1; --text-2: rgba(255,255,255,0.6);
-      --line: rgba(255,255,255,0.08); --code-bg: rgba(34,197,94,0.12);
-    }
-  }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
-    font-family: 'Geist', -apple-system, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  main { max-width: 720px; margin: 0 auto; padding: 80px 24px 120px; line-height: 1.65; }
-  h1 { font-size: 38px; letter-spacing: -0.02em; margin: 0 0 6px; font-weight: 800; }
-  h2 { font-size: 22px; letter-spacing: -0.01em; margin: 48px 0 12px; font-weight: 700;
-    padding-bottom: 8px; border-bottom: 1px solid var(--line); }
-  h3 { font-size: 16px; margin: 28px 0 8px; font-weight: 600; }
-  p, li { font-size: 15.5px; color: var(--text); }
-  .lede { font-size: 17px; color: var(--text-2); }
-  .meta { font-family: ui-monospace, 'JetBrains Mono', monospace; font-size: 12px;
-    color: var(--text-2); margin-bottom: 36px; }
-  a { color: var(--brand); text-decoration: none; border-bottom: 1px solid currentColor; }
-  code { font-family: ui-monospace, 'JetBrains Mono', monospace; font-size: 13px;
-    background: var(--code-bg); padding: 1px 6px; border-radius: 4px; color: var(--brand); }
-  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
-  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); }
-  th { font-weight: 600; color: var(--text-2); font-size: 12px;
-    letter-spacing: 0.04em; text-transform: uppercase; }
-  blockquote { margin: 16px 0; padding: 12px 16px;
-    border-left: 3px solid var(--brand); background: var(--code-bg);
-    border-radius: 0 8px 8px 0; }
-  blockquote p { margin: 4px 0; }
-  hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
-  .nav { display: flex; gap: 18px; padding: 18px 24px; border-bottom: 1px solid var(--line);
-    font-size: 13px; }
-  .nav a { color: var(--text-2); border: 0; }
-  .nav a.active { color: var(--brand); }
-  .logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 700;
-    color: var(--text); border: 0; }
-  .logo-mark { width: 20px; height: 20px; border-radius: 5px;
-    background: var(--brand); display: inline-block; }
+  .doc { max-width: 760px; margin: 0 auto; padding: 56px 0 20px; }
+  .doc-head { margin-bottom: 36px; }
+  .doc-head h1 { font-size: clamp(32px, 5vw, 46px); font-weight: 800; letter-spacing: -0.035em; }
+  .updated { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.06em; margin-top: 14px; }
+  .tldr { background: linear-gradient(180deg, rgba(48,209,88,0.06), transparent 70%), var(--surface);
+    border: 1px solid var(--green-line); border-radius: 18px; padding: 24px 26px; margin: 28px 0 8px; }
+  .tldr h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-bright); margin: 0 0 14px; }
+  .tldr ul { margin: 0; padding-left: 4px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .tldr li { display: flex; gap: 11px; font-size: 14.5px; color: var(--ink-2); line-height: 1.5; }
+  .tldr li .tick { color: var(--green); flex: 0 0 auto; }
+  .tldr li b { color: var(--ink); }
+
+  .doc section { margin-top: 40px; }
+  .doc h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 14px; display: flex; gap: 12px; align-items: baseline; }
+  .doc h2 .n { font-family: var(--mono); font-size: 14px; color: var(--green); flex: 0 0 auto; }
+  .doc h3 { font-size: 16px; font-weight: 600; margin: 22px 0 8px; color: var(--ink); }
+  .doc p { color: var(--ink-2); font-size: 15.5px; line-height: 1.7; margin: 0 0 14px; }
+  .doc p b, .doc li b { color: var(--ink); font-weight: 600; }
+  .doc a { color: var(--green-bright); text-decoration: none; border-bottom: 1px solid var(--green-line); }
+  .doc ul { color: var(--ink-2); font-size: 15px; line-height: 1.6; padding-left: 22px; margin: 0 0 14px; }
+  .doc li { margin: 7px 0; }
+
+  table.data { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  table.data th, table.data td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+  table.data th { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  table.data td { color: var(--ink-2); }
+  table.data td:first-child { color: var(--ink); font-weight: 600; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--hairline); border-radius: 14px; }
+  .table-scroll table.data { margin: 0; min-width: 560px; }
+  .table-scroll th, .table-scroll td { padding: 12px 14px; }
+
+  .lvl-block { border-left: 3px solid var(--hairline-2); padding: 4px 0 4px 18px; margin: 14px 0; }
+  .lvl-block.l1 { border-color: var(--green); }
+  .lvl-block.l2 { border-color: var(--c-fun); }
+  .lvl-block.l3 { border-color: var(--ink-3); }
+  .lvl-block .lt { font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .lvl-block .lt .tag { font-family: var(--mono); font-size: 11px; margin-right: 8px; }
+  .lvl-block.l1 .tag { color: var(--green); } .lvl-block.l2 .tag { color: var(--c-fun); } .lvl-block.l3 .tag { color: var(--ink-3); }
+
+  .contact-box { margin-top: 40px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 18px; padding: 26px; }
+  .contact-box p { margin: 0 0 8px; }
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <nav class="nav">
-  <a class="logo" href="index.html"><span class="logo-mark"></span>TimeFlow</a>
-  <div style="flex: 1"></div>
-  <a href="privacy.html" class="active">隐私政策</a>
-  <a href="support.html">支持</a>
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow</a>
+    <div class="nav-links">
+      <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+      <a href="help.html"><span class="zh">帮助</span><span class="en">Help</span></a>
+      <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+      <a href="changelog.html"><span class="zh">更新</span><span class="en">Changelog</span></a>
+      <a href="privacy.html" class="active"><span class="zh">隐私</span><span class="en">Privacy</span></a>
+    </div>
+    <span class="nav-spacer"></span>
+    <div class="nav-right">
+      <div class="lang-toggle"><button data-lang-btn="zh">中</button><button data-lang-btn="en">EN</button></div>
+      <a class="btn btn-primary nav-cta" href="index.html#notify"><span class="zh">通知我</span><span class="en">Notify me</span></a>
+      <button class="hamburger" data-burger aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+    </div>
+  </div>
 </nav>
-<main>
-  <h1>隐私政策</h1>
-  <p class="meta">最后更新：2026 年 6 月 25 日</p>
+<div class="drawer" data-drawer>
+  <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+  <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+  <a href="feedback.html"><span class="zh">反馈</span><span class="en">Feedback</span></a>
+  <a href="changelog.html"><span class="zh">更新日志</span><span class="en">Changelog</span></a>
+  <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy</span></a>
+</div>
 
-  <p class="lede">TimeFlow 由独立开发者维护。简而言之：你的时间记录数据保存在你的设备上，并通过<strong>你自己的 iCloud 私有库</strong>（端对端加密）在你的设备间同步。我们没有服务器、没有账户系统、不收集任何分析数据，也读不到你的数据。只有当你主动触发 AI 洞察或语音补记时，部分数据才会发送给你自己配置的服务商。</p>
+<main class="container dotgrid">
+  <article class="doc">
+    <div class="doc-head">
+      <h1><span class="zh">隐私政策</span><span class="en">Privacy Policy</span></h1>
+      <p style="color:var(--ink-2);font-size:15.5px;line-height:1.7;margin-top:16px">
+        <span class="zh">TimeFlow（「我们」「本 App」）由独立开发者维护。本政策说明 TimeFlow 如何收集、使用、存储和共享数据。</span>
+        <span class="en">TimeFlow ("we", "the app") is maintained by an independent developer. This policy explains how TimeFlow collects, uses, stores and shares data.</span>
+      </p>
+      <p class="updated"><span class="zh">最后更新：2026 年 6 月 25 日</span><span class="en">Last updated: June 25, 2026</span></p>
 
-  <h2>1. 我们收集什么数据</h2>
-  <p>TimeFlow 本身<strong>不收集</strong>任何数据到我们的服务器（因为我们没有服务器）。App 在你的设备上读取或创建以下数据；除标注「不离开设备」外，均存在你的设备并经<strong>你自己的</strong> iCloud 私有库同步：</p>
-  <table>
-    <thead><tr><th>类型</th><th>用途</th><th>存储位置</th></tr></thead>
-    <tbody>
-      <tr><td>时间块</td><td>核心数据</td><td>你的设备 + 你的 iCloud 私有库</td></tr>
-      <tr><td>项目 / 分类</td><td>组织你的记录</td><td>你的设备 + 你的 iCloud 私有库</td></tr>
-      <tr><td>睡眠数据（原始）</td><td>识别睡眠时段</td><td>不离开设备 (HealthKit)</td></tr>
-      <tr><td>运动数据（原始）</td><td>推断步行 / 跑步 / 骑行 / 驾驶通勤</td><td>不离开设备 (CoreMotion)</td></tr>
-      <tr><td>地点坐标</td><td>识别家 / 工作 / 自定义地点</td><td>你的设备 + 你的 iCloud（端对端加密）</td></tr>
-      <tr><td>Mac 使用时长</td><td>电脑各 app 使用时段</td><td>仅经你自己的 iCloud 私有库同步</td></tr>
-      <tr><td>语音（可选）</td><td>口述补记时间块</td><td>本地识别；选用豆包时上传字节跳动</td></tr>
-      <tr><td>API Key</td><td>调用 AI</td><td>iOS Keychain (本设备解锁时)</td></tr>
-    </tbody>
-  </table>
-  <p>我们<strong>不收集</strong>：姓名 / 邮箱 / 电话、设备 ID、广告 ID、使用统计、崩溃报告。</p>
+      <div class="tldr">
+        <h4><span class="zh">简而言之</span><span class="en">In short</span></h4>
+        <ul>
+          <li><span class="tick">✓</span><span class="zh">你的时间记录数据存在<b>你的设备</b>，并通过<b>你自己的 iCloud 私有库</b>（端对端加密）在你的设备间自动同步。</span><span class="en">Your time data lives on <b>your device</b> and syncs across your devices via <b>your own private iCloud</b> (end-to-end encrypted).</span></li>
+          <li><span class="tick">✓</span><span class="zh">我们<b>没有服务器</b>，没有账户系统（无需注册登录），不收集分析数据，也读不到你的数据。</span><span class="en">We have <b>no servers</b>, no accounts (no sign-up), collect no analytics, and cannot read your data.</span></li>
+          <li><span class="tick">✓</span><span class="zh">只有你<b>主动触发 AI 洞察</b>时，部分数据才发给你<b>自己配置的</b> AI 服务商。</span><span class="en">Data is sent to <b>your own configured</b> AI provider only when you <b>actively trigger an AI insight</b>.</span></li>
+          <li><span class="tick">✓</span><span class="zh">你随时可以选择上传给 AI 的数据范围（<b>L1 / L2 / L3</b>）。</span><span class="en">You choose what's shared with AI at any time (<b>L1 / L2 / L3</b>).</span></li>
+        </ul>
+      </div>
+    </div>
 
-  <h2>2. 数据如何离开你的设备</h2>
-  <p>你的数据会自动同步到<strong>你自己的</strong> iCloud（端对端加密，见 §4）—— 只在「你的设备 ↔ 你的 iCloud」之间流转，苹果和我们都读不到。除此之外，数据离开你的掌控只在下面这些<strong>你主动触发</strong>的情况：</p>
+    <!-- 1 -->
+    <section>
+      <h2><span class="n">1</span><span class="zh">我们收集什么数据</span><span class="en">What data we collect</span></h2>
+      <p><span class="zh">TimeFlow 本身<b>不收集</b>任何数据到我们的服务器（因为我们没有服务器）。App 在你的设备上读取或创建以下数据；除标注「不离开设备」外，均存在你的设备并经<b>你自己的</b> iCloud 私有库同步：</span><span class="en">TimeFlow <b>does not collect</b> any data to our servers (we have none). The app reads or creates the following on your device; except those marked "Never leaves device", they live on your device and sync via <b>your own</b> private iCloud:</span></p>
+      <div class="table-scroll">
+        <table class="data">
+          <thead class="zh"><tr><th>类型</th><th>用途</th><th>来源</th><th>存储位置</th></tr></thead>
+          <thead class="en"><tr><th>Type</th><th>Purpose</th><th>Source</th><th>Stored</th></tr></thead>
+          <tbody class="zh">
+            <tr><td>时间块</td><td>时间记录核心数据</td><td>手动 / 被动识别</td><td>设备 + 你的 iCloud</td></tr>
+            <tr><td>项目和分类</td><td>组织你的记录</td><td>你创建</td><td>设备 + 你的 iCloud</td></tr>
+            <tr><td>睡眠数据（原始）</td><td>识别睡眠时段</td><td>Apple HealthKit</td><td>不离开设备</td></tr>
+            <tr><td>运动数据（原始）</td><td>推断走路 / 跑步 / 骑行 / 驾驶</td><td>Apple CoreMotion</td><td>不离开设备</td></tr>
+            <tr><td>地点坐标</td><td>识别家 / 工作 / 自定义地点</td><td>Apple CoreLocation</td><td>设备 + 你的 iCloud（端对端加密）</td></tr>
+            <tr><td>语音录音（可选）</td><td>口述补记时间块</td><td>你按住说话</td><td>本地识别；选用豆包时上传字节跳动转写</td></tr>
+            <tr><td>AI API Key</td><td>调用你选的 AI</td><td>你粘贴输入</td><td>iOS Keychain（不同步）</td></tr>
+            <tr><td>AI 洞察结果</td><td>缓存生成的报告</td><td>AI 返回</td><td>设备 + 你的 iCloud</td></tr>
+          </tbody>
+          <tbody class="en">
+            <tr><td>Time blocks</td><td>Core tracking data</td><td>Manual / passive</td><td>Device + your iCloud</td></tr>
+            <tr><td>Projects & categories</td><td>Organize records</td><td>You create</td><td>Device + your iCloud</td></tr>
+            <tr><td>Sleep data (raw)</td><td>Detect sleep periods</td><td>Apple HealthKit</td><td>Never leaves device</td></tr>
+            <tr><td>Motion data (raw)</td><td>Infer walk / run / cycle / drive</td><td>Apple CoreMotion</td><td>Never leaves device</td></tr>
+            <tr><td>Place coordinates</td><td>Detect home / work / custom places</td><td>Apple CoreLocation</td><td>Device + your iCloud (E2E encrypted)</td></tr>
+            <tr><td>Voice recording (optional)</td><td>Dictate a time block</td><td>You hold to talk</td><td>On-device; uploaded to ByteDance if Doubao is chosen</td></tr>
+            <tr><td>AI API key</td><td>Call your chosen AI</td><td>You paste it</td><td>iOS Keychain (not synced)</td></tr>
+            <tr><td>AI insight results</td><td>Cache reports</td><td>Returned by AI</td><td>Device + your iCloud</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3><span class="zh">我们不收集</span><span class="en">We do NOT collect</span></h3>
+      <ul>
+        <li><span class="zh">你的姓名、邮箱、电话或任何账户标识</span><span class="en">Your name, email, phone or any account identifier</span></li>
+        <li><span class="zh">你的设备 ID、广告 ID</span><span class="en">Your device ID or advertising ID</span></li>
+        <li><span class="zh">应用使用统计（页面访问、按钮点击）</span><span class="en">Usage analytics (page views, button taps)</span></li>
+        <li><span class="zh">崩溃报告（除非你主动通过邮件附上）</span><span class="en">Crash reports (unless you email them to us yourself)</span></li>
+      </ul>
+    </section>
 
-  <p><strong>① 生成 AI 洞察时</strong> —— 按你选的隐私级别脱敏后，发给你自己配置的 AI 服务商：</p>
+    <!-- 2 -->
+    <section>
+      <h2><span class="n">2</span><span class="zh">数据如何离开你的设备</span><span class="en">How data leaves your device</span></h2>
+      <p><span class="zh">你的数据会自动同步到<b>你自己的 iCloud</b>（端对端加密，见第 4 节）—— 只在「你的设备 ↔ 你的 iCloud」之间流转，苹果和我们都读不到。除此之外，数据离开你的掌控只在你<b>主动触发</b>下面这些情况：</span><span class="en">Your data auto-syncs to <b>your own iCloud</b> (end-to-end encrypted, see §4) — flowing only between your devices and your iCloud, unreadable by Apple or us. Beyond that, data leaves your control only when you <b>actively trigger</b> the following:</span></p>
+      <p><span class="zh">当你点「生成 AI 洞察」时，TimeFlow 会向你<b>自己配置 API Key 的</b> AI 服务商发起一次 HTTPS 请求。payload 取决于你在「设置 → AI 隐私级别」选择的等级：</span><span class="en">When you tap "Generate AI insight", TimeFlow makes one HTTPS request to the AI provider <b>you configured with your own key</b>. The payload depends on the level set in Settings → AI privacy level:</span></p>
+      <div class="lvl-block l1">
+        <div class="lt"><span class="tag">L1</span><span class="zh">隐私优先</span><span class="en">Privacy-first</span></div>
+        <p style="margin:0"><span class="zh">只发送聚合统计：各分类时长占比、每日睡眠总分钟、最长连续天数等。<b>不发送</b>项目名、地点、原始时间块。</span><span class="en">Sends only aggregate stats: category share, daily sleep minutes, longest streaks, etc. <b>Never</b> project names, locations or raw blocks.</span></p>
+      </div>
+      <div class="lvl-block l2">
+        <div class="lt"><span class="tag">L2</span><span class="zh">匿名上下文</span><span class="en">Anonymized context</span></div>
+        <p style="margin:0"><span class="zh">在 L1 基础上 + 匿名化时间块图案（起止、分类、时长）。项目名替换为 <code style="font-family:var(--mono)">Project A / B / C</code>。<b>不发送</b>项目原名、地点、备注。</span><span class="en">L1 plus anonymized block patterns (start/end, category, duration). Names become <code style="font-family:var(--mono)">Project A / B / C</code>. <b>No</b> original project names, locations or notes.</span></p>
+      </div>
+      <div class="lvl-block l3">
+        <div class="lt"><span class="tag">L3</span><span class="zh">完整上下文</span><span class="en">Full context</span></div>
+        <p style="margin:0"><span class="zh">在 L2 基础上 + 项目名、自定义分类名、运动细节。<b>只有 L3 会包含可能识别你身份的内容</b>。隐私级别可在「设置 → AI 隐私级别」随时切换。</span><span class="en">L2 plus project names, custom category names, motion detail. <b>Only L3 may include identifying content</b>. Switch levels anytime in Settings → AI privacy level.</span></p>
+      </div>
+      <h3><span class="zh">AI 服务商如何处理你的数据</span><span class="en">How AI providers handle your data</span></h3>
+      <p><span class="zh">每家服务商的隐私政策由其各自管理。<b>TimeFlow 与任何一家都无商业关系或数据共享协议。</b>建议你在使用前阅读所选服务商的政策：</span><span class="en">Each provider's privacy policy is its own. <b>TimeFlow has no commercial relationship or data-sharing agreement with any of them.</b> We recommend reading your chosen provider's policy first:</span></p>
+      <ul>
+        <li>Anthropic (Claude) — <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">anthropic.com/legal/privacy</a></li>
+        <li>Google (Gemini) — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+        <li>DeepSeek — <a href="https://platform.deepseek.com/privacy" target="_blank" rel="noopener">platform.deepseek.com/privacy</a></li>
+        <li>Moonshot (Kimi) — <a href="https://www.moonshot.cn/privacy" target="_blank" rel="noopener">moonshot.cn/privacy</a></li>
+        <li><span class="zh">字节跳动 · 火山引擎（豆包）</span><span class="en">ByteDance · Volcengine (Doubao)</span> — <a href="https://www.volcengine.com/docs/6256/64902" target="_blank" rel="noopener">volcengine.com</a></li>
+      </ul>
 
-  <h3>L1 · 隐私优先</h3>
-  <p>只发送聚合统计：各分类时长占比、每日睡眠总分钟数、最长工作连续天数。<strong>不发送</strong>项目名、会议标题、地点。</p>
+      <h3><span class="zh">语音补记（可选）</span><span class="en">Voice capture (optional)</span></h3>
+      <p><span class="zh">若你在「设置」里开启「豆包流式识别」并用语音补记时间块，录音会实时上传<b>字节跳动 / 火山引擎</b>做转写；不开启则使用 <b>Apple 设备端识别</b>，完全不联网。这条数据<b>绝不</b>发给任何 AI 洞察服务商或其他第三方。</span><span class="en">If you enable "Doubao streaming recognition" in Settings and dictate a block, the audio is streamed to <b>ByteDance / Volcengine</b> for transcription; otherwise <b>Apple on-device recognition</b> is used and nothing goes online. This audio is <b>never</b> sent to any AI-insight provider or other third party.</span></p>
+    </section>
 
-  <h3>L2 · 匿名上下文</h3>
-  <p>L1 + 匿名化时间块图案。<strong>不发送</strong>项目原名、地点、备注。</p>
+    <!-- 3 -->
+    <section>
+      <h2><span class="n">3</span><span class="zh">你的 API Key</span><span class="en">Your API key</span></h2>
+      <ul>
+        <li><span class="zh">API Key 由你<b>自带</b>（从各服务商控制台获取）</span><span class="en">You <b>bring your own</b> key from the provider's console</span></li>
+        <li><span class="zh">存储在 <b>iOS Keychain</b>，属性为 <code style="font-family:var(--mono)">WhenUnlockedThisDeviceOnly</code></span><span class="en">Stored in <b>iOS Keychain</b> as <code style="font-family:var(--mono)">WhenUnlockedThisDeviceOnly</code></span></li>
+        <li><span class="zh"><b>不会</b>通过 iCloud 同步到其他设备</span><span class="en"><b>Not</b> synced to other devices via iCloud</span></li>
+        <li><span class="zh">删除 App 即清除 Keychain 中所有 TimeFlow 项</span><span class="en">Deleting the app clears all TimeFlow items from Keychain</span></li>
+      </ul>
+    </section>
 
-  <h3>L3 · 完整上下文</h3>
-  <p>L2 + 项目名、自定义分类名、运动细节。<strong>只有 L3 会包含可能识别你身份的内容</strong>。</p>
+    <!-- 4 -->
+    <section>
+      <h2><span class="n">4</span><span class="zh">iCloud 同步（自动）</span><span class="en">iCloud sync (automatic)</span></h2>
+      <p><span class="zh">登录 iCloud 后<b>自动开启</b>：</span><span class="en">Enabled <b>automatically</b> once you're signed into iCloud:</span></p>
+      <ul>
+        <li><span class="zh">时间块、项目、分类、AI 洞察、自定义地点（含坐标）通过 <b>NSPersistentCloudKitContainer</b> 同步到你私有的 iCloud</span><span class="en">Blocks, projects, categories, AI insights and custom places (incl. coordinates) sync to your private iCloud via <b>NSPersistentCloudKitContainer</b></span></li>
+        <li><span class="zh">数据仅在你自己的设备之间同步，由 CloudKit 端对端加密，Apple 和开发者都读不到</span><span class="en">Data syncs only between your own devices, end-to-end encrypted by CloudKit; neither Apple nor the developer can read it</span></li>
+        <li><span class="zh"><b>API Key 不会被 iCloud 同步</b>，需在新设备重新填入</span><span class="en"><b>The API key is never synced</b> — re-enter it on a new device</span></li>
+        <li><span class="zh">未登录 iCloud 时，数据只留在本机，一切照常</span><span class="en">Without iCloud, data simply stays on your device — everything still works</span></li>
+      </ul>
+    </section>
 
-  <h3>AI 服务商</h3>
-  <p>TimeFlow 当前支持 4 个 AI 服务商：</p>
-  <ul>
-    <li>Anthropic (Claude) — <a href="https://www.anthropic.com/legal/privacy">隐私政策</a></li>
-    <li>Google (Gemini) — <a href="https://policies.google.com/privacy">隐私政策</a></li>
-    <li>DeepSeek — <a href="https://platform.deepseek.com/privacy">隐私政策</a></li>
-    <li>Moonshot (Kimi) — <a href="https://www.moonshot.cn/privacy">隐私政策</a></li>
-    <li>字节跳动 · 火山引擎（豆包）— <a href="https://www.volcengine.com/docs/6256/64902">隐私政策</a></li>
-  </ul>
-  <p><strong>TimeFlow 与上述任何一家都无商业关系或数据共享协议。</strong></p>
+    <!-- 5 -->
+    <section>
+      <h2><span class="n">5</span><span class="zh">数据保留与删除</span><span class="en">Retention & deletion</span></h2>
+      <ul>
+        <li><span class="zh">数据在设备上保留，直到你<b>主动删除</b>或<b>卸载 App</b></span><span class="en">Data stays on device until you <b>delete it</b> or <b>uninstall</b></span></li>
+        <li><span class="zh">「设置 → 数据与隐私」可一键导出（JSON / CSV）或清空</span><span class="en">Settings → Data & privacy lets you export (JSON / CSV) or wipe in one tap</span></li>
+        <li><span class="zh">AI 服务商保留你请求数据的时长由各家政策决定，TimeFlow 无法控制</span><span class="en">How long AI providers retain your request data is governed by their policies, beyond TimeFlow's control</span></li>
+      </ul>
+    </section>
 
-  <h3>② 语音补记时（可选）</h3>
-  <p>若你在设置里开启「豆包流式识别」并用语音补记，录音会实时上传字节跳动 / 火山引擎做转写。不开启则使用 Apple 设备端识别，完全不联网。</p>
+    <!-- 6 -->
+    <section>
+      <h2><span class="n">6</span><span class="zh">儿童</span><span class="en">Children</span></h2>
+      <p><span class="zh">TimeFlow 不针对 13 岁以下儿童设计，不会有意收集任何儿童数据。</span><span class="en">TimeFlow is not designed for children under 13 and does not knowingly collect any data from them.</span></p>
+    </section>
 
-  <h3>③ Mac 电脑使用时长（可选）</h3>
-  <p>若你安装 TimeFlow Mac 版，电脑各 app 的使用时段会经<strong>你自己的 iCloud 私有库</strong>同步到手机。这条数据只在「你的设备 ↔ 你的 iCloud」之间流转，<strong>绝不</strong>发给我们或任何 AI / 第三方。</p>
+    <!-- 7 -->
+    <section>
+      <h2><span class="n">7</span><span class="zh">政策变更</span><span class="en">Changes to this policy</span></h2>
+      <p><span class="zh">如本政策有重大变更，我们会在 App 内提示并在此页面更新「最后更新」日期。继续使用即表示你接受变更。</span><span class="en">If this policy changes materially, we'll notify you in-app and update the "Last updated" date here. Continued use means you accept the changes.</span></p>
+    </section>
 
-  <h2>3. 你的 API Key</h2>
-  <ul>
-    <li>由你<strong>自带</strong>（从各服务商控制台获取）</li>
-    <li>存储在 iOS Keychain，<code>kSecAttrAccessibleWhenUnlockedThisDeviceOnly</code></li>
-    <li><strong>不会</strong>通过 iCloud 同步</li>
-    <li>删除 App 即清除</li>
-  </ul>
-
-  <h2>4. iCloud 同步（自动）</h2>
-  <p>登录 iCloud 后<strong>自动开启</strong>：时间块、项目、分类、AI 洞察、自定义地点（含坐标）通过 <code>NSPersistentCloudKitContainer</code> 同步到<strong>你私有的</strong> iCloud 库。Apple 无法读取（CloudKit 端对端加密），开发者更读不到。<strong>API Key 不会同步</strong>（仅存本机 Keychain）。未登录 iCloud 时数据只留在本机，一切照常。</p>
-
-  <h2>5. 数据保留与删除</h2>
-  <p>你的数据保留直到你主动删除或卸载 App。在 设置 → 数据与隐私 中可一键导出（JSON / CSV）或清空所有数据。</p>
-
-  <h2>6. 儿童</h2>
-  <p>TimeFlow 不针对 13 岁以下儿童设计，不会有意收集任何儿童数据。</p>
-
-  <h2>7. 政策变更</h2>
-  <p>如本政策有重大变更，我们会在 App 内提示并在此页面更新"最后更新"日期。</p>
-
-  <h2>8. 联系方式</h2>
-  <blockquote>
-    <p>📧 <strong>timeflow.app@gmail.com</strong></p>
-    <p>🐛 <a href="https://github.com/perfect12369874/timeflow-ios/issues">GitHub Issues</a></p>
-  </blockquote>
-
-  <hr/>
-  <p class="meta">TimeFlow 是独立开发者作品，不属于任何公司。</p>
+    <!-- 8 -->
+    <section>
+      <h2><span class="n">8</span><span class="zh">联系方式</span><span class="en">Contact</span></h2>
+      <div class="contact-box">
+        <p><span class="zh">如对本政策或你的数据有任何疑问：</span><span class="en">Questions about this policy or your data:</span></p>
+        <p>📧 <a href="mailto:timeflow.app@gmail.com">timeflow.app@gmail.com</a></p>
+        <p>🐛 <a href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">GitHub Issues</a></p>
+        <p style="color:var(--ink-4);font-size:13px;margin-top:14px"><span class="zh">TimeFlow 是独立开发者作品，不属于任何公司。</span><span class="en">TimeFlow is an indie project, not affiliated with any company.</span></p>
+      </div>
+    </section>
+  </article>
 </main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><span class="mk"><img src="assets/app-icon.png" alt="TimeFlow"/></span>TimeFlow</a>
+        <p><span class="zh">让你看见时间真正去向的 iOS app。被动识别 + 主动追踪 + AI 洞察。隐私优先。</span><span class="en">The iOS app that shows where your time really goes. Passive detect + active tracking + AI insight. Privacy-first.</span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">产品</span><span class="en">Product</span></h4>
+        <a href="index.html"><span class="zh">首页</span><span class="en">Home</span></a>
+        <a href="changelog.html"><span class="zh">更新日志 / Roadmap</span><span class="en">Changelog / Roadmap</span></a>
+        <a href="index.html#notify"><span class="zh">上架通知</span><span class="en">Launch notice</span></a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">支持</span><span class="en">Support</span></h4>
+        <a href="help.html"><span class="zh">帮助 / 常见问题</span><span class="en">Help / FAQ</span></a>
+        <a href="feedback.html"><span class="zh">反馈 / 建议</span><span class="en">Feedback</span></a>
+        <a href="mailto:timeflow.app@gmail.com">timeflow.app@gmail.com</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="zh">法律</span><span class="en">Legal</span></h4>
+        <a href="privacy.html"><span class="zh">隐私政策</span><span class="en">Privacy Policy</span></a>
+        <a href="https://github.com/perfect12369874/timeflow-ios/issues" target="_blank" rel="noopener">GitHub Issues</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> TimeFlow</span>
+      <span class="zh">独立开发者作品 · 不属于任何公司</span><span class="en">An indie project · not affiliated with any company</span>
+      <span class="sp"></span>
+      <span>seetimeflow.com</span>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
 </body>
 </html>
